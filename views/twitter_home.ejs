@@ -1,0 +1,1322 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Successful Login</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+      <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script><div class="flex-module-header">
+                <h3>Who to follow</h3>
+                <small>Â· </small>
+                <button type="button" class="btn-link js-refresh-suggestions"><small>Refresh</small></button>
+                <small class="view-all">Â· <a class="js-view-all-link" href="/who_to_follow/suggestions" data-element-term="view_all_link">View all</a></small>
+            </div>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+Loading the AngularJS file from /public/angularJS folder
+<script src="angularjs/tweet.js"></script>
+  </head>
+  <body ng-app="myApp" ng-controller="myCtrl" >
+
+    <h1>Welcome</h1>
+      <span><a href="/profile">{{ Info[0].first_name }} {{Info[0].last_name}}</a></span><br>
+      <span><a href="/profile">@{{ Info[0].handle }}</a></span><br>
+      <span>{{ followers[0].num2 }}</span><br>
+      <span>{{ following[0].num1 }}</span><br>
+    <form action="/tweet" method="post">
+      <textarea name="tweet" row="4" cols="50" ng-model="tweet" required>
+        </textarea>
+          <br>
+      
+        <button type="submit">Tweet</button><br><br>
+
+          
+         </form>
+        
+
+      <div style="float: left; width: 600px">
+          <p ng-repeat="t in tweets"><strong>{{t.tweet}}</strong></p>
+          
+          </div>
+          
+          <div style="float: left; width: 400px">
+          <p ng-repeat="h in hashtags"><strong><a href="" ng-click="relatedTweets(h.hashtag)">#{{h.hashtag}}</a></strong></p>
+          
+          </div>
+          
+      <div style="float: right">
+          <div ng-repeat="s in suggestedUsers">
+          <p><strong>{{s.username}}
+              <br><button  name="username" type="submit" ng-click="follow(s.username)" >Follow</button><br><br></strong></p>
+              
+              </div>
+      </div>
+
+          </div>
+  </body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+  <head>
+        
+  <link rel="stylesheet" href="https://abs.twimg.com/a/1458071669/css/t1/twitter_core.bundle.css">
+  <link rel="stylesheet" href="https://abs.twimg.com/a/1458071669/css/t1/twitter_more_1.bundle.css">
+  <link rel="stylesheet" href="https://abs.twimg.com/a/1458071669/css/t1/twitter_more_2.bundle.css">
+
+  <link rel="dns-prefetch" href="https://pbs.twimg.com">
+  <link rel="dns-prefetch" href="https://t.co">
+  <link rel="preload" href="https://abs.twimg.com/c/swift/en/init.c3654d419ee7b40d1584326139930cac04c77b2a.js" as="script">
+  <link rel="preload" href="https://abs.twimg.com/c/swift/en/bundle/timeline.554ed014858f8ca1d1ca2a1f1c267da484bebe35.js" as="script">
+  <link rel="preload" href="https://abs.twimg.com/c/swift/en/bundle/boot.3cee1e3331adc0452150db50ff223101fc193714.js" as="script">
+  <title>Twitter</title>
+  <link rel="mask-icon" sizes="any" href="https://abs.twimg.com/a/1458071669/img/t1/favicon.svg" color="#55acee">
+  <link href="//abs.twimg.com/favicons/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link rel="manifest" href="/manifest.json">
+
+  <meta name="swift-page-name" id="swift-page-name" content="home">
+    <link rel="canonical" href="https://twitter.com/">
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Twitter">
+    <link id="async-css-placeholder">
+    <input type="hidden" class="swift-boot-module" value="app/pages/home">
+    <input type="hidden" id="swift-module-path" value="https://abs.twimg.com/c/swift/en">
+  <script src="https://abs.twimg.com/c/swift/en/init.c3654d419ee7b40d1584326139930cac04c77b2a.js" async></script>
+  <script async src="//jsfiddle.net/DCjYA/1/embed/"></script>
+  <script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+<script src="angularjs/ngtweet.js"></script>
+
+  </head>
+  <body class="three-col logged-in user-style-iammohit12 enhanced-mini-profile" 
+data-fouc-class-names="swift-loading"
+ dir="ltr" ng-app="myTweet" ng-controller="myTweet">
+      
+    <div id="doc" class="route-home">
+        <div class="topbar js-topbar">
+    
+    <div class="ProfilePage-editingOverlay"></div>
+
+  <div class="global-nav" data-section-term="top_nav">
+    <div class="global-nav-inner">
+      <div class="container">
+        
+<h1 class="Icon Icon--bird bird-topbar-etched" style="display: inline-block; width: 24px; height: 21px;">
+  <span class="visuallyhidden">Twitter</span>
+</h1>
+  
+  <div role="navigation" style="display: inline-block;"><ul class="nav js-global-actions" id="global-actions"><li id="global-nav-home" class="home active" data-global-action="home">
+        <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/home" data-component-context="home_nav" data-nav="home">
+          <span class="Icon Icon--home Icon--large"></span>
+          <span class="text">Home</span>
+        </a>
+      </li><li class="moments js-moments-tab " data-global-action="moments">
+        <a role="button" href="/i/moments" class="js-nav js-tooltip js-dynamic-tooltip" data-component-context="moments_nav" data-nav="moments" data-placement="bottom">
+          <span class="Icon Icon--lightning Icon--large"></span>
+          <span class="text">Moments</span>
+        </a>
+      </li><li class="people notifications" data-global-action="connect">
+        <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/i/notifications" data-component-context="connect_nav" data-nav="connect">
+          <span class="Icon Icon--notifications Icon--large"></span>
+          <span class="text">Notifications</span>
+            <span class="count">
+              <span class="count-inner">0</span>
+            </span>
+        </a>
+      </li><li class="dm-nav">
+        <a role="button" href="#" class="js-tooltip js-dynamic-tooltip global-dm-nav" data-placement="bottom">
+          <span class="Icon Icon--dm Icon--large"></span>
+          <span class="text">Messages</span>
+          <span class="dm-new"><span class="count-inner"></span></span>
+        </a>
+      </li></ul>
+  </div>
+
+  <div class="pull-right" style="display: inline-block;"><div role="search">
+  <form class="t1-form form-search js-search-form" action="" id="global-nav-search">
+    <label class="visuallyhidden" for="search-query">Search query</label>
+    <input class="search-input" type="text" id="search-query" placeholder="Search Twitter" ng-model="searchHash" name="q" autocomplete="off" spellcheck="false">
+    <span class="search-icon js-search-action">
+      <button ng-click="hashSearch();" type="submit" class="Icon Icon--search nav-search">
+        <span class="visuallyhidden">Search Twitter</span>
+      </button>
+    </span>
+      
+  </form>
+</div>
+<ul class="nav right-actions"><li class="me dropdown session js-session" data-global-action="t1me" id="user-dropdown">
+        <img style="margin-top: 7px;margin-left: 15px;"class="avatar size32" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_normal.png" alt="Profile and settings" data-user-id="703806129919250432"></a>
+        <div class="dropdown-menu">
+    <div class="dropdown-caret">
+      <span class="caret-outer"></span>
+      <span class="caret-inner"></span>
+    </div>
+    <ul>
+      
+      <li class="current-user" data-name="profile">
+
+    </ul>
+  </div>
+
+      <li role="complementary" aria-labelledby="global-new-tweet-button" class="topbar-tweet-btn" style="margin-left: 15px;">
+        <button ng-click="logout()" type="submit" id="global-new-tweet-button" type="button" class="js-global-new-tweet js-tooltip btn primary-btn tweet-btn js-dynamic-tooltip" data-placement="bottom" data-component-context="new_tweet_button">
+          <span class="Icon Icon--tweet Icon--large"></span>
+          <span class="text">Logout</span>
+        </button>
+      </li></ul></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div id="page-outer">
+          <div id="page-container" class="AppContent wrapper wrapper-home">
+              
+            <div class="dashboard dashboard-left">
+
+      <div class="DashboardProfileCard  module">
+
+    <img class="DashboardProfileCard-bg u-bgUserColor u-block"
+      src="image/cover.jpeg"
+      tabindex="-1"
+      aria-hidden="true">
+    </img>
+
+    <div class="DashboardProfileCard-content">
+
+        
+          <div class="DashboardProfileCard-avatarContainer">
+            <div id="choose-photo" class="controls avatar-settings inline-upload-avatar dropdown center">
+              <a class="DashboardProfileCard-avatarLink ProfileAvatar-placeholder u-inlineBlock js-nav js-tooltip profile-picture js-dropdown-toggle"
+                  href="/iammohit12"
+                  title="Add an avatar"
+                  tabindex="-1" aria-hidden="true"
+                  data-placement="top"
+                  data-scribe-element="profile_avatar">
+                  <div class="DashboardProfileCard-avatarImage u-borderUserColorLightHover u-bgUserColor" data-avatar-placeholder="true">
+                    <img src="image/profile.jpeg" height="72px" width="72px"></img>
+                  </div>
+                  <img class="DashboardProfileCard-avatarImage js-action-profile-avatar" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_bigger.png" alt="" style="display:none">
+              </a>
+
+                  <div class="uploader-image uploader-avatar clearfix">
+                      <div class="dropdown-menu">
+  
+  <ul>
+    <li id="photo-choose-existing" class="photo-choose-existing upload-photo">
+      <button type="button" class="dropdown-link">Upload photo</button>
+      <div class="photo-selector">
+  <button class="btn" type="button" disabled>
+      Change photo
+    </button>
+  <span class="photo-file-name">No file selected</span>
+  <div class="image-selector">
+    <input type="hidden" name="media_file_name" class="file-name">
+    <input type="hidden" name="media_data_empty" class="file-data">
+    <label class="t1-label">
+      <span class="u-hiddenVisually">Add Photo</span>
+      <input type="file" name="media_empty" class="file-input js-tooltip" tabindex="-1" title="Add Photo" accept="image/gif,image/jpeg,image/jpg,image/png">
+    </label>
+    <div class="swf-container"></div>
+  </div>
+</div>
+
+    </li>
+      <li id="photo-choose-webcam" class="u-hidden">
+        <button type="button" class="dropdown-link">Take photo</button>
+      </li>
+    <li id="photo-delete-image" class="u-hidden">
+      <button type="button" class="dropdown-link">Remove</button>
+    </li>
+      <li class="dropdown-divider" role="presentation"></li>
+      <li class="cancel-options">
+        <button type="button" class="dropdown-link">Cancel</button>
+      </li>
+  </ul>
+</div>
+<div class="webcam-detect swf-container"></div>
+
+                  </div>
+            </div>
+          </div>
+
+      <div class="DashboardProfileCard-userFields">
+        <div class="DashboardProfileCard-name u-textTruncate">
+          <a class="u-textInheritColor" href="/profile">{{ Info[0].FirstName }} {{Info[0].LastName}}</a>
+        </div>
+        <span class="DashboardProfileCard-screenname u-inlineBlock u-dir" dir="ltr">
+          <a class="DashboardProfileCard-screennameLink u-linkComplex u-linkClean" href="/profile">@<span class="u-linkComplex-target">{{Info[0].UserName}}</span></a>
+        </span>
+      </div>
+
+          <div class="ProfileCardStats">
+    <ul class="ProfileCardStats-statList Arrange Arrange--bottom Arrange--equal"><li class="ProfileCardStats-stat Arrange-sizeFit">
+        <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav"
+            title="1 Tweet"
+            href="/profile"
+            data-element-term="tweet_stats">
+          <span class="ProfileCardStats-statLabel u-block">Tweets</span>
+          <span class="ProfileCardStats-statValue" data-is-compact="false">{{numOfTweets[0].num3}}</span>
+        </a>
+      </li><li class="ProfileCardStats-stat Arrange-sizeFit">
+          <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav"
+              title="49 Following"
+              href="/profile" 
+              data-element-term="following_stats">
+            <span class="ProfileCardStats-statLabel u-block">Following</span>
+            <span class="ProfileCardStats-statValue" data-is-compact="false">{{following[0].num1}}</span>
+          </a>
+        </li><li class="ProfileCardStats-stat Arrange-sizeFit">
+          <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav"
+              title="4 Followers"
+              href="/profile" 
+              data-element-term="follower_stats">
+            <span class="ProfileCardStats-statLabel u-block">Followers</span>
+            <span class="ProfileCardStats-statValue" data-is-compact="false">{{followers[0].num2}}</span>
+          </a>
+        </li>
+    </ul>
+  </div>
+
+          <div id="dashboard-profile-prompt"></div>
+
+    </div>
+  </div>
+
+    <div class="module roaming-module wtf-module js-wtf-module ">
+
+</div>
+</div>
+
+
+<div role="main" aria-labelledby="content-main-heading" class="content-main top-timeline-tweetbox" id="timeline">
+
+  <div id="above-timeline-prompt"></div>
+
+  <div class="timeline-tweet-box">
+    <div class="home-tweet-box tweet-box component tweet-user">
+        <img class="top-timeline-tweet-box-user-image avatar size32" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_normal.png" alt="">
+  <!--   <form class="t1-form tweet-form
+        condensed
+        is-minimalButtonLabels"
+     	method="post"
+      target="tweet-post-iframe"
+        data-condensed-text="What’s happening?"
+     	action="/insertTweet"
+      enctype="multipart/form-data"
+        data-poll-composer-rows="3"
+        data-poll-duration="true"> -->
+
+      <input type="hidden" value="" name="use_tweet_ui_metrics">
+    <img class="inline-reply-user-image avatar size32" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_normal.png" alt="">
+  <span class="inline-reply-caret">
+    <span class="caret-inner"></span>
+  </span>
+
+  <div class="tweet-content">
+      <div class="TweetBox-photoIntent"></div>
+    <div class="icon add-photo-icon hidden"></div>
+    
+    <span class="icon nav-tweet hidden"></span>
+    <div class="tweet-drag-help tweet-drag-photo-here hidden"></div>
+    <span class="visuallyhidden" id="tweet-box-home-timeline-label">Tweet text</span>
+
+    <div class="RichEditor">
+  
+  <div class="RichEditor-mozillaCursorWorkaround">&nbsp;</div>
+  <div class="RichEditor-scrollContainer">
+    <form method="post" action="/insertTweet">
+   <!--  <div aria-labelledby="tweet-box-home-timeline-label" name="tweet" id="tweet-box-home-timeline" class="tweet-box rich-editor" contenteditable="true" spellcheck="true" role="textbox"
+      aria-multiline="true" data-placeholder-default="What's happening?" data-placeholder-poll-composer-on="Ask a question...">What's happening?</div>
+    -->
+    <div>
+ 	<input type="text" style="width:98.3%;height:auto;"aria-labelledby="tweet-box-home-timeline-label" name="tweet" id="tweet-box-home-timeline" class="tweet-box rich-editor" contenteditable="true" spellcheck="true" role="textbox"
+      aria-multiline="true" placeholder="What's happening?" data-placeholder-poll-composer-on="Ask a question...">
+     <!-- <img src="image/tweet.png" alt="picture" align="right" style="position:absolute; padding:2px;height: 90%; "> -->
+      <!-- <button type="submit"><img src="image/tweet.png" alt="picture" align="right" style="position:absolute; padding-top:2px;height: 90%; "></img></button><!--  </img> -->
+   <input type="submit" value="Tweet" class="btn primary-btn  tweet-btn js-tweet-btn" >
+   </div>
+   </form>
+   <div class="RichEditor-pictographs" aria-hidden="true"></div>
+  </div> 
+  <div class="RichEditor-mozillaCursorWorkaround">&nbsp;</div>
+</div>
+    
+<div role="listbox" class="dropdown-menu typeahead">
+  <div aria-hidden="true" class="dropdown-caret">
+    <div class="caret-outer"></div>
+    <div class="caret-inner"></div>
+  </div>
+  <div role="presentation" class="dropdown-inner js-typeahead-results">
+      <div role="presentation" class="typeahead-recent-searches">
+  <h3 id="recent-searches-heading" class="typeahead-category-title recent-searches-title">Recent searches</h3><button type="button" tabindex="-1" class="btn-link clear-recent-searches">Clear All</button>
+  <ul role="presentation" class="typeahead-items recent-searches-list">
+    
+    <li role="presentation" class="typeahead-item typeahead-recent-search-item">
+      <span class="Icon Icon--close" aria-hidden="true"><span class="visuallyhidden">Remove</span></span>
+      <a role="option" aria-describedby="recent-searches-heading" class="js-nav" href="" data-search-query="" data-query-source="" data-ds="recent_search" tabindex="-1"></a>
+    </li>
+  </ul>
+</div>
+
+    <div role="presentation" class="typeahead-saved-searches">
+  <h3 id="saved-searches-heading" class="typeahead-category-title saved-searches-title">Saved searches</h3>
+  <ul role="presentation" class="typeahead-items saved-searches-list">
+    
+    <li role="presentation" class="typeahead-item typeahead-saved-search-item">
+      <span class="Icon Icon--close" aria-hidden="true"><span class="visuallyhidden">Remove</span></span>
+      <a role="option" aria-describedby="saved-searches-heading" class="js-nav" href="" data-search-query="" data-query-source="" data-ds="saved_search" tabindex="-1"></a>
+    </li>
+  </ul>
+</div>
+
+    <ul role="presentation" class="typeahead-items typeahead-topics">
+  
+  <li role="presentation" class="typeahead-item typeahead-topic-item">
+    <a role="option" class="js-nav" href="" data-search-query="" data-query-source="typeahead_click" data-ds="topics" tabindex="-1"></a>
+  </li>
+</ul>
+<ul role="presentation" class="typeahead-items typeahead-accounts js-typeahead-accounts">
+  
+  <li role="presentation" data-user-id="" data-user-screenname="" data-remote="true" data-score="" class="typeahead-item typeahead-account-item js-selectable">
+    
+    <a role="option" class="js-nav" data-query-source="typeahead_click" data-search-query="" data-ds="account">
+      <img class="avatar size32" alt="">
+      <span class="typeahead-user-item-info">
+        <span class="fullname"></span>
+        <span class="js-verified hidden"><span class="Icon Icon--verified Icon--small">
+  <span class="u-hiddenVisually">Verified account</span>
+</span></span>
+        <span class="username"><s>@</s><b></b></span>
+      </span>
+    </a>
+  </li>
+  <li role="presentation" class="js-selectable typeahead-accounts-shortcut js-shortcut"><a role="option" class="js-nav" href="" data-search-query="" data-query-source="typeahead_click" data-shortcut="true" data-ds="account_search"></a></li>
+</ul>
+
+    <ul role="presentation" class="typeahead-items typeahead-trend-locations-list">
+  
+  <li role="presentation" class="typeahead-item typeahead-trend-locations-item"><a role="option" class="js-nav" href="" data-ds="trend_location" data-search-query="" tabindex="-1"></a></li>
+</ul>
+    <div role="presentation" class="typeahead-user-select">
+  <div role="presentation" class="typeahead-empty-suggestions">
+    Suggested users
+  </div>
+  <ul role="presentation" class="typeahead-items typeahead-selected js-typeahead-selected">
+    
+    <li role="presentation" data-user-id="" data-user-screenname="" data-remote="true" data-score="" class="typeahead-item typeahead-selected-item js-selectable">
+      
+      <a role="option" class="js-nav" data-query-source="typeahead_click" data-search-query="" data-ds="account">
+        <img class="avatar size32" alt="">
+        <span class="typeahead-user-item-info">
+          <span class="select-status deselect-user js-deselect-user Icon Icon--check"></span>
+          <span class="select-status select-disabled Icon Icon--unfollow"></span>
+          <span class="fullname"></span>
+          <span class="js-verified hidden"><span class="Icon Icon--verified Icon--small">
+  <span class="u-hiddenVisually">Verified account</span>
+</span></span>
+          <span class="username"><s>@</s><b></b></span>
+        </span>
+      </a>
+    </li>
+    <li role="presentation" class="typeahead-selected-end"></li>
+  </ul>
+
+  <ul role="presentation" class="typeahead-items typeahead-accounts js-typeahead-accounts">
+    
+    <li role="presentation" data-user-id="" data-user-screenname="" data-remote="true" data-score="" class="typeahead-item typeahead-account-item js-selectable">
+      
+      <a role="option" class="js-nav" data-query-source="typeahead_click" data-search-query="" data-ds="account">
+        <img class="avatar size32" alt="">
+        <span class="typeahead-user-item-info">
+          <span class="select-status deselect-user js-deselect-user Icon Icon--check"></span>
+          <span class="select-status select-disabled Icon Icon--unfollow"></span>
+          <span class="fullname"></span>
+          <span class="js-verified hidden"><span class="Icon Icon--verified Icon--small">
+  <span class="u-hiddenVisually">Verified account</span>
+</span></span>
+          <span class="username"><s>@</s><b></b></span>
+        </span>
+      </a>
+    </li>
+    <li role="presentation" class="typeahead-accounts-end"></li>
+  </ul>
+</div>
+
+    <div role="presentation" class="typeahead-dm-conversations">
+  <ul role="presentation" class="typeahead-items typeahead-dm-conversation-items">
+    <li role="presentation" class="typeahead-item typeahead-dm-conversation-item">
+      <a role="option" tabindex="-1"></a>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
+    <textarea aria-hidden="true" class="tweet-box-shadow hidden" name="status"></textarea>
+    <div class="thumbnail-container">
+  <div class="thumbnail-wrapper">
+    <div class="previews"></div>
+    <!-- <div class="preview template">
+      <button type="button" class="preview-overlay dismiss js-dismiss" tabindex="-1">
+  <span class="icon dismiss-white">
+    <span class="visuallyhidden">
+      Dismiss
+    </span>
+  </span>
+</button>
+
+      <button type="button" class="preview-overlay edit js-edit" tabindex="-1">
+    Trim
+</button>
+<div class="preview-overlay duration-badge"></div>
+
+      <div class="play-button">
+        <div class="Icon Icon--playButton"><span class="u-hiddenVisually">Play</span></div>
+      </div>
+      <span class="filename"></span>
+      <div class="Badge Badge--icon">
+        <span class="Icon Icon--medium Icon--gifBadge"></span>
+      </div>
+    </div>
+    <div class="preview-message">
+        <button type="button" class="start-tagging js-open-user-select no-users u-borderUserColorLight u-textUserColor" disabled>
+          <span class="Icon Icon--me Icon--smallest"></span>
+          <span class="tagged-users">
+            Who's in these photos?
+          </span>
+        </button>
+    </div> -->
+    <div class="js-attribution attribution"></div>
+  </div>
+</div>
+  <div class="photo-tagging-container user-select-container hidden">
+    <div class="tagging-dropdown dropdown-menu">
+      <div class="dropdown-caret center">
+        <div class="caret-outer"></div>
+        <div class="caret-inner"></div>
+      </div>
+      <div class="photo-tagging-controls user-select-controls">
+        <label class="t1-label">
+          <span class="Icon Icon--search nav-search"></span>
+          <span class="u-hiddenVisually">Users in this photo</span>
+          <input class="js-initial-focus" type="text" placeholder="Search and tag up to 10 people">
+        </label>
+      </div>
+      <div class="typeahead-container">
+
+<div role="listbox" class="dropdown-menu typeahead">
+  <div aria-hidden="true" class="dropdown-caret">
+    <div class="caret-outer"></div>
+    <div class="caret-inner"></div>
+  </div>
+  <div role="presentation" class="dropdown-inner js-typeahead-results">
+      <div role="presentation" class="typeahead-recent-searches">
+  <h3 id="recent-searches-heading" class="typeahead-category-title recent-searches-title">Recent searches</h3><button type="button" tabindex="-1" class="btn-link clear-recent-searches">Clear All</button>
+  <ul role="presentation" class="typeahead-items recent-searches-list">
+    
+    <li role="presentation" class="typeahead-item typeahead-recent-search-item">
+      <span class="Icon Icon--close" aria-hidden="true"><span class="visuallyhidden">Remove</span></span>
+      <a role="option" aria-describedby="recent-searches-heading" class="js-nav" href="" data-search-query="" data-query-source="" data-ds="recent_search" tabindex="-1"></a>
+    </li>
+  </ul>
+</div>
+
+    <div role="presentation" class="typeahead-saved-searches">
+  <h3 id="saved-searches-heading" class="typeahead-category-title saved-searches-title">Saved searches</h3>
+  <ul role="presentation" class="typeahead-items saved-searches-list">
+    
+  </ul>
+</div>
+
+    <ul role="presentation" class="typeahead-items typeahead-topics">
+  
+  <li role="presentation" class="typeahead-item typeahead-topic-item">
+    <a role="option" class="js-nav" href="" data-search-query="" data-query-source="typeahead_click" data-ds="topics" tabindex="-1"></a>
+  </li>
+</ul>
+       
+    <div role="presentation" class="typeahead-user-select">
+
+  <ul role="presentation" class="typeahead-items typeahead-accounts js-typeahead-accounts">
+    
+    <li role="presentation" data-user-id="" data-user-screenname="" data-remote="true" data-score="" class="typeahead-item typeahead-account-item js-selectable">
+      
+      <a role="option" class="js-nav" data-query-source="typeahead_click" data-search-query="" data-ds="account">
+        <img class="avatar size32" alt="">
+        <span class="typeahead-user-item-info">
+          <span class="select-status deselect-user js-deselect-user Icon Icon--check"></span>
+          <span class="select-status select-disabled Icon Icon--unfollow"></span>
+          <span class="fullname"></span>
+          <span class="js-verified hidden"><span class="Icon Icon--verified Icon--small">
+  <span class="u-hiddenVisually">Verified account</span>
+</span></span>
+          <span class="username"><s>@</s><b></b></span>
+        </span>
+      </a>
+    </li>
+    <li role="presentation" class="typeahead-accounts-end"></li>
+  </ul>
+</div>
+
+    
+  </div>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+
+    
+    <div class="CardComposer">
+        <div class="PollingCardComposer u-hidden"
+    data-poll-max-options="4" data-poll-option-count="2"
+    data-poll-min-duration="5" data-poll-max-duration="10080"
+>
+  <div class="PollingCardComposer-option PollingCardComposer-option1" data-option-index="1">
+    <input type="radio" class= "PollingCardComposer-optionRadio" disabled>
+    <div class="PollingCardComposer-optionInput is-singleLine is-plainText u-borderUserColorLightFocus" contenteditable="true" spellcheck="true" role="textbox" data-placeholder="Choice 1"></div>
+    <div style="clear: both"></div>
+  </div>
+  <div class="PollingCardComposer-option PollingCardComposer-option2" data-option-index="2">
+    <input type="radio" class= "PollingCardComposer-optionRadio" disabled>
+    <div class="PollingCardComposer-optionInput is-singleLine is-plainText u-borderUserColorLightFocus" contenteditable="true" spellcheck="true" role="textbox" data-placeholder="Choice 2"></div>
+    <div style="clear: both"></div>
+  </div>
+  <div class="PollingCardComposer-option PollingCardComposer-option3" data-option-index="3">
+    <input type="radio" class= "PollingCardComposer-optionRadio" disabled>
+    <div class="PollingCardComposer-optionInput is-singleLine is-plainText u-borderUserColorLightFocus" contenteditable="true" spellcheck="true" role="textbox" data-placeholder="Choice 3 (optional)"></div>
+    <button type="button" class="PollingCardComposer-removeOption">
+      <span class="Icon Icon--close"></span>
+    </button>
+    <div style="clear: both"></div>
+  </button>
+  </div>
+  
+  
+  
+  <button type="button" class="PollingCardComposer-remove u-textUserColor">
+    <span>Remove poll</span>
+  </button>
+</div>
+
+    </div>
+
+
+    
+    <div class="tweet-box-overlay"></div>
+  </div>
+
+  <div class="TweetBoxToolbar">
+    <div class="TweetBoxExtras tweet-box-extras">
+
+
+        <span class="TweetBoxExtras-item TweetBox-mediaPicker"><div class="photo-selector">
+  <button aria-hidden="true" class="btn icon-btn js-tooltip" type="button" tabindex="-1" data-original-title="Add Photo">
+    <span class="tweet-camera Icon Icon--camera"></span>
+    <span class="text add-photo-label u-hiddenVisually">
+        Media
+    </span>
+  </button>
+  <div class="image-selector">
+    <input type="hidden" name="media_data_empty" class="file-data">
+    <div class="multi-photo-data-container hidden">
+    </div>
+    <label class="t1-label">
+      <span class="visuallyhidden">
+          Add media
+      </span>
+      <input type="file" name="media_empty" accept="image/gif,image/jpeg,image/jpg,image/png"
+          class="file-input js-tooltip" data-original-title="Add photo" data-delay="150">
+    </label>
+    <div class="swf-container"></div>
+  </div>
+</div>
+</span>
+
+          <span class="TweetBoxExtras-item"><div class="geo-picker dropdown">
+  <button class="btn js-geo-search-trigger geo-picker-btn icon-btn js-tooltip" type="button" data-delay="150">
+    <span class="Icon Icon--geo"></span>
+    <span class="text geo-status u-hiddenVisually">
+        Location
+    </span>
+  </button>
+  <span class="dropdown-container dropdown-menu"></span>
+  <input type="hidden" name="place_id">
+</div>
+</span>
+
+        <span class="TweetBoxExtras-item"><div class="FoundMediaSearch found-media-search dropdown">
+  <button class="btn js-found-media-search-trigger js-dropdown-toggle icon-btn js-tooltip" type="button"
+      title="Add a GIF" data-delay="150" aria-hidden="true">
+    <span class="Icon Icon--gif Icon--large"></span>
+    <span class="text u-hiddenVisually">
+      GIF
+    </span>
+  </button>
+  <div class="FoundMediaSearch-dropdownMenu dropdown-menu" tabindex="-1">
+    <div class="FoundMediaSearch-content Caret Caret--stroked">
+      <div class="FoundMediaSearch-query">
+        <input class="FoundMediaSearch-queryInput" type="text" autocomplete="off" placeholder="Search for a GIF">
+        <span class="Icon Icon--search"></span>
+      </div>
+      <div class="FoundMediaSearch-results">
+        <div class="FoundMediaSearch-items"></div>
+        <div class="FoundMediaSearch-pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</span>
+
+        <span class="TweetBoxExtras-item"><div class="PollCreator">
+  <button class="btn icon-btn PollCreator-btn js-tooltip" type="button" title="Add poll"
+      data-delay="150">
+    <span class="PollCreator-icon Icon Icon--poll"></span>
+    <span class="text PollCreator-label u-hiddenVisually">
+        Poll
+    </span>
+  </button>
+</div>
+</span>
+
+
+      <div class="TweetBoxUploadProgress">
+  <div class="TweetBoxUploadProgress-uploading">
+    Uploading
+    <div class="TweetBoxUploadProgress-bar">
+      <div class="TweetBoxUploadProgress-barPosition"></div>
+    </div>
+  </div>
+  <div class="TweetBoxUploadProgress-processing">
+    Processing
+    <div class="TweetBoxUploadProgress-spinner Spinner Spinner--size14"></div>
+  </div>
+</div>
+    </div>
+  
+  </div>
+<!-- </form> -->
+
+    </div>
+  </div>
+
+  <div class="content-header visuallyhidden">
+    <div class="header-inner">
+      <h2 id="content-main-heading" class="js-timeline-title">Tweets</h2>
+    </div>
+  </div>
+        <div class="stream-container conversations-enabled "
+    data-max-position="710373121094787073" data-min-position="710320175958994944">
+
+    <div ng-show = "showFeed" class="stream">
+        <ol class="stream-items js-navigable-stream" id="stream-items-id">
+          
+      <li class="js-stream-item stream-item stream-item expanding-stream-item" data-item-id="710352016556462080" id="stream-item-tweet-710352016556462080" data-item-type="tweet">
+    <ol role="presentation" class="expanded-conversation expansion-container js-expansion-container js-navigable-stream">
+  <li role="presentation" class="original-tweet-container">
+  
+  
+  <div ng-repeat="t in allTweets" class="tweet original-tweet js-original-tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable has-cards" data-tweet-id="710744825117745152" data-disclosure-type="" data-item-id="710744825117745152" data-permalink-path="/TechCrunch/status/710744825117745152" data-screen-name="TechCrunch" data-name="TechCrunch" data-user-id="816653" data-has-cards="true" data-card2-type="summary_large_image" data-expanded-footer="<div class=&quot;js-tweet-details-fixer tweet-details-fixer&quot;>
+    <div class=&quot;card2 js-media-container&quot; data-card2-name=&quot;summary_large_image&quot;>
+    <div class=&quot;js-macaw-cards-iframe-container initial-card-height card-type-summary_large_image&quot;
+  data-src=&quot;/i/cards/tfw/v1/710744825117745152?cardname=summary_large_image&amp;amp;earned=true&amp;amp;lang=en&quot;
+  data-autoplay-src=&quot;/i/cards/tfw/v1/710744825117745152?cardname=summary_large_image&amp;amp;earned=true&amp;amp;lang=en&quot;
+  data-card-name=&quot;summary_large_image&quot;
+  data-card-url=&quot;https://t.co/JZC6SeiDfj&quot;
+  data-publisher-id=&quot;816653&quot;
+  data-creator-id=&quot;&quot;
+  data-amplify-content-id=&quot;&quot;
+  data-amplify-playlist-url=&quot;&quot;
+  data-full-card-iframe-url=&quot;/i/cards/tfw/v1/710744825117745152?cardname=summary_large_image&amp;amp;earned=true&amp;amp;lang=en&quot;
+  data-has-autoplayable-media=&quot;false&quot;>
+</div>
+
+</div>
+
+
+  <div class=&quot;js-machine-translated-tweet-container&quot;></div>
+    <div class=&quot;js-tweet-stats-container tweet-stats-container &quot;>
+    </div>
+
+  <div class=&quot;client-and-actions&quot;>
+  <span class=&quot;metadata&quot;>
+    <span>1:29 AM - 18 Mar 2016</span>
+       &amp;middot; <a class=&quot;permalink-link js-permalink js-nav&quot; href=&quot;/TechCrunch/status/710744825117745152&quot;  tabindex=&quot;-1&quot;>Details</a>
+  </span>
+</div>
+
+
+</div>
+" data-you-follow="true" data-follows-you="false" data-you-block="false">
+
+
+    <div class="context">
+      
+      
+
+    </div>
+
+    <div class="content">
+      
+
+      
+      <div class="stream-item-header">
+          <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="" data-user-id="816653">
+    <img class="avatar js-action-profile-avatar" src="" alt="">
+    <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">{{t.FirstName}} {{t.LastName}}</strong>
+    <span class="username js-action-profile-name" data-aria-label-part="">@<b>{{t.UserName}}</b></span>
+      </a>
+
+        <small class="time">
+  <a href="/TechCrunch/status/710744825117745152" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="1:29 AM - 18 Mar 2016"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1458289745" data-time-ms="1458289745000" data-long-form="true" aria-hidden="true">1h</span><span class="u-hiddenVisually" data-aria-label-part="last">1 hour ago</span></a>
+</small>
+
+          
+          
+      </div>
+
+      
+        <div class="js-tweet-text-container">
+  <p class="TweetTextSize  js-tweet-text tweet-text" lang="en" data-aria-label-part="0">{{t.Tweet}}</p>
+</div>
+
+
+
+
+      
+        
+
+      
+      
+  <div class="expanded-content js-tweet-details-dropdown">
+    
+      
+  </div>
+
+
+      
+      <div class="stream-item-footer">
+  
+    
+<a class="details with-icn js-details" href="/TechCrunch/status/710744825117745152">
+  <b>
+      <span class="expand-stream-item js-view-details">View summary</span>
+      <span class="collapse-stream-item js-hide-details">Hide summary</span>
+  </b>
+</a>
+
+
+  
+        <div class="ProfileTweet-actionCountList u-hiddenVisually">
+    
+    <span class="ProfileTweet-action--reply u-hiddenVisually"></span>
+    <span class="ProfileTweet-action--retweet u-hiddenVisually">
+      
+      <span class="ProfileTweet-actionCount" data-tweet-stat-count="42">
+        <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">42 retweets</span>
+      </span>
+    </span>
+    <span class="ProfileTweet-action--favorite u-hiddenVisually">
+      <span class="ProfileTweet-actionCount" data-tweet-stat-count="16">
+        <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">16 likes</span>
+      </span>
+    </span>
+  </div>
+
+    <div class="ProfileTweet-actionList js-actions" role="group" aria-label="Tweet actions">
+      <div class="ProfileTweet-action ProfileTweet-action--reply">
+  <button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-actionReply" data-modal="ProfileTweet-reply" type="button">
+    <div class="IconContainer js-tooltip" title="Reply">
+      <span class="Icon Icon--reply"></span>
+      <span class="u-hiddenVisually">Reply</span>
+    </div>
+  </button>
+</div>
+      <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
+  <button class="ProfileTweet-actionButton  js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
+    <div class="IconContainer js-tooltip" title="Retweet">
+      <span class="Icon Icon--retweet"></span>
+      <span class="u-hiddenVisually">Retweet</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">42</span>
+        </span>
+      </div>
+  </button><button class="ProfileTweet-actionButtonUndo js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
+    <div class="IconContainer js-tooltip" title="Undo retweet">
+      <span class="Icon Icon--retweet"></span>
+      <span class="u-hiddenVisually">Retweeted</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">42</span>
+        </span>
+      </div>
+  </button>
+</div>
+      <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
+  <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
+    <div class="IconContainer js-tooltip" title="Like">
+      <div class="HeartAnimationContainer">
+        <div class="HeartAnimation "></div>
+      </div>
+      <span class="u-hiddenVisually">Like</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">16</span>
+        </span>
+      </div>
+  </button><button class="ProfileTweet-actionButtonUndo u-linkClean js-actionButton js-actionFavorite" type="button">
+    <div class="IconContainer js-tooltip" title="Undo like">
+      <div class="HeartAnimationContainer">
+        <div class="HeartAnimation "></div>
+      </div>
+      <span class="u-hiddenVisually">Liked</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">16</span>
+        </span>
+      </div>
+  </button>
+</div>
+      
+
+        <div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions">
+    <div class="dropdown">
+  <button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button">
+      <div class="IconContainer js-tooltip" data-original-title="More">
+        <span class="Icon Icon--dots"></span>
+        <span class="u-hiddenVisually">More</span>
+      </div>
+  </button>
+  <div class="dropdown-menu">
+  <div class="dropdown-caret">
+    <div class="caret-outer"></div>
+    <div class="caret-inner"></div>
+  </div>
+  <ul>
+      <li class="share-via-dm js-actionShareViaDM" data-nav="share_tweet_dm">
+        <button type="button" class="dropdown-link">Share via Direct Message</button>
+      </li>
+    
+      <li class="copy-link-to-tweet js-actionCopyLinkToTweet">
+        <button type="button" class="dropdown-link">Copy link to Tweet</button>
+      </li>
+      <li class="embed-link js-actionEmbedTweet" data-nav="embed_tweet">
+        <button type="button" class="dropdown-link">Embed Tweet</button>
+      </li>
+          <li class="mute-user-item pretty-link"><button type="button" class="dropdown-link">Mute</button></li>
+  <li class="unmute-user-item pretty-link"><button type="button" class="dropdown-link">Unmute</button></li>
+
+        <li class="block-link js-actionBlock" data-nav="block">
+          <button type="button" class="dropdown-link">Block</button>
+        </li>
+        <li class="unblock-link js-actionUnblock" data-nav="unblock">
+          <button type="button" class="dropdown-link">Unblock</button>
+        </li>
+        <li class="report-link js-actionReport" data-nav="report">
+          <button type="button" class="dropdown-link">
+            
+            Report
+          </button>
+        </li>
+  </ul>
+</div>
+
+</div>
+
+  </div>
+
+    </div>
+
+</div>
+  
+
+
+
+      
+      
+
+    </div>
+  </div>
+  
+  
+    
+<!--         <div class="stream-footer ">
+  <div class='timeline-end has-items has-more-items'>
+    <div class="stream-end">
+  <div class="stream-end-inner">
+      <span class="Icon Icon--large Icon--logo"></span>
+
+  </div>
+</div>
+
+    <div class="stream-loading">
+  <div class="stream-end-inner">
+    <span class="spinner" title="Loading..."></span>
+  </div>
+</div>
+
+  </div>
+</div> -->
+
+</div>
+
+<div ng-show="displaySearchResults"> 
+
+    <div  class="stream">
+        <ol class="stream-items js-navigable-stream" id="stream-items-id">
+          
+      <li class="js-stream-item stream-item stream-item expanding-stream-item" data-item-id="710352016556462080" id="stream-item-tweet-710352016556462080" data-item-type="tweet">
+    <ol role="presentation" class="expanded-conversation expansion-container js-expansion-container js-navigable-stream">
+  <li role="presentation" class="original-tweet-container">
+  
+  
+  <div ng-repeat="search in searchTweets" class="tweet original-tweet js-original-tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable has-cards" data-tweet-id="710744825117745152" data-disclosure-type="" data-item-id="710744825117745152" data-permalink-path="/TechCrunch/status/710744825117745152" data-screen-name="TechCrunch" data-name="TechCrunch" data-user-id="816653" data-has-cards="true" data-card2-type="summary_large_image" data-expanded-footer="<div class=&quot;js-tweet-details-fixer tweet-details-fixer&quot;>
+    <div class=&quot;card2 js-media-container&quot; data-card2-name=&quot;summary_large_image&quot;>
+    <div class=&quot;js-macaw-cards-iframe-container initial-card-height card-type-summary_large_image&quot;
+  data-src=&quot;/i/cards/tfw/v1/710744825117745152?cardname=summary_large_image&amp;amp;earned=true&amp;amp;lang=en&quot;
+  data-autoplay-src=&quot;/i/cards/tfw/v1/710744825117745152?cardname=summary_large_image&amp;amp;earned=true&amp;amp;lang=en&quot;
+  data-card-name=&quot;summary_large_image&quot;
+  data-card-url=&quot;https://t.co/JZC6SeiDfj&quot;
+  data-publisher-id=&quot;816653&quot;
+  data-creator-id=&quot;&quot;
+  data-amplify-content-id=&quot;&quot;
+  data-amplify-playlist-url=&quot;&quot;
+  data-full-card-iframe-url=&quot;/i/cards/tfw/v1/710744825117745152?cardname=summary_large_image&amp;amp;earned=true&amp;amp;lang=en&quot;
+  data-has-autoplayable-media=&quot;false&quot;>
+</div>
+
+</div>
+
+
+  <div class=&quot;js-machine-translated-tweet-container&quot;></div>
+    <div class=&quot;js-tweet-stats-container tweet-stats-container &quot;>
+    </div>
+
+  <div class=&quot;client-and-actions&quot;>
+  <span class=&quot;metadata&quot;>
+    <span>1:29 AM - 18 Mar 2016</span>
+       &amp;middot; <a class=&quot;permalink-link js-permalink js-nav&quot; href=&quot;/TechCrunch/status/710744825117745152&quot;  tabindex=&quot;-1&quot;>Details</a>
+  </span>
+</div>
+
+
+</div>
+" data-you-follow="true" data-follows-you="false" data-you-block="false">
+
+
+    <div class="context">
+      
+      
+
+    </div>
+
+    <div class="content">
+      
+
+      
+      <div class="stream-item-header">
+          <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/TechCrunch" data-user-id="816653">
+    <img class="avatar js-action-profile-avatar" src="" alt="">
+    <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">{{search.FirstName}} {{search.LastName}}</strong>
+    <span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>{{search.UserName}}</b></span>
+    
+  </a>
+
+        <small class="time">
+  <a href="/TechCrunch/status/710744825117745152" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="1:29 AM - 18 Mar 2016"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1458289745" data-time-ms="1458289745000" data-long-form="true" aria-hidden="true">1h</span><span class="u-hiddenVisually" data-aria-label-part="last">1 hour ago</span></a>
+</small>
+
+          
+          
+      </div>
+
+      
+        <div class="js-tweet-text-container">
+  <p class="TweetTextSize  js-tweet-text tweet-text" lang="en" data-aria-label-part="0">{{search.Tweet}}</p>
+</div>
+
+
+
+
+      
+        
+
+      
+      
+  <div class="expanded-content js-tweet-details-dropdown">
+    
+      
+  </div>
+
+
+      
+      <div class="stream-item-footer">
+  
+    
+<a class="details with-icn js-details" href="/TechCrunch/status/710744825117745152">
+  <b>
+      <span class="expand-stream-item js-view-details">View summary</span>
+      <span class="collapse-stream-item js-hide-details">Hide summary</span>
+  </b>
+</a>
+
+
+  
+        <div class="ProfileTweet-actionCountList u-hiddenVisually">
+    
+    <span class="ProfileTweet-action--reply u-hiddenVisually"></span>
+    <span class="ProfileTweet-action--retweet u-hiddenVisually">
+      
+      <span class="ProfileTweet-actionCount" data-tweet-stat-count="42">
+        <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">42 retweets</span>
+      </span>
+    </span>
+    <span class="ProfileTweet-action--favorite u-hiddenVisually">
+      <span class="ProfileTweet-actionCount" data-tweet-stat-count="16">
+        <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">16 likes</span>
+      </span>
+    </span>
+  </div>
+
+    <div class="ProfileTweet-actionList js-actions" role="group" aria-label="Tweet actions">
+      <div class="ProfileTweet-action ProfileTweet-action--reply">
+  <button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-actionReply" data-modal="ProfileTweet-reply" type="button">
+    <div class="IconContainer js-tooltip" title="Reply">
+      <span class="Icon Icon--reply"></span>
+      <span class="u-hiddenVisually">Reply</span>
+    </div>
+  </button>
+</div>
+      <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
+  <button class="ProfileTweet-actionButton  js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
+    <div class="IconContainer js-tooltip" title="Retweet">
+      <span class="Icon Icon--retweet"></span>
+      <span class="u-hiddenVisually">Retweet</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">42</span>
+        </span>
+      </div>
+  </button><button class="ProfileTweet-actionButtonUndo js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
+    <div class="IconContainer js-tooltip" title="Undo retweet">
+      <span class="Icon Icon--retweet"></span>
+      <span class="u-hiddenVisually">Retweeted</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">42</span>
+        </span>
+      </div>
+  </button>
+</div>
+      <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
+  <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
+    <div class="IconContainer js-tooltip" title="Like">
+      <div class="HeartAnimationContainer">
+        <div class="HeartAnimation "></div>
+      </div>
+      <span class="u-hiddenVisually">Like</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">16</span>
+        </span>
+      </div>
+  </button><button class="ProfileTweet-actionButtonUndo u-linkClean js-actionButton js-actionFavorite" type="button">
+    <div class="IconContainer js-tooltip" title="Undo like">
+      <div class="HeartAnimationContainer">
+        <div class="HeartAnimation "></div>
+      </div>
+      <span class="u-hiddenVisually">Liked</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">16</span>
+        </span>
+      </div>
+  </button>
+</div>
+      
+
+        <div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions">
+    <div class="dropdown">
+  <button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button">
+      <div class="IconContainer js-tooltip" data-original-title="More">
+        <span class="Icon Icon--dots"></span>
+        <span class="u-hiddenVisually">More</span>
+      </div>
+  </button>
+  <div class="dropdown-menu">
+  <div class="dropdown-caret">
+    <div class="caret-outer"></div>
+    <div class="caret-inner"></div>
+  </div>
+  <ul>
+      <li class="share-via-dm js-actionShareViaDM" data-nav="share_tweet_dm">
+        <button type="button" class="dropdown-link">Share via Direct Message</button>
+      </li>
+    
+      <li class="copy-link-to-tweet js-actionCopyLinkToTweet">
+        <button type="button" class="dropdown-link">Copy link to Tweet</button>
+      </li>
+      <li class="embed-link js-actionEmbedTweet" data-nav="embed_tweet">
+        <button type="button" class="dropdown-link">Embed Tweet</button>
+      </li>
+          <li class="mute-user-item pretty-link"><button type="button" class="dropdown-link">Mute</button></li>
+  <li class="unmute-user-item pretty-link"><button type="button" class="dropdown-link">Unmute</button></li>
+
+        <li class="block-link js-actionBlock" data-nav="block">
+          <button type="button" class="dropdown-link">Block</button>
+        </li>
+        <li class="unblock-link js-actionUnblock" data-nav="unblock">
+          <button type="button" class="dropdown-link">Unblock</button>
+        </li>
+        <li class="report-link js-actionReport" data-nav="report">
+          <button type="button" class="dropdown-link">
+            
+            Report
+          </button>
+        </li>
+  </ul>
+</div>
+
+</div>
+
+  </div>
+
+    </div>
+
+</div>
+  
+
+
+
+      
+      
+
+    </div>
+  </div>
+  
+  
+    
+<!--         <div class="stream-footer ">
+  <div class='timeline-end has-items has-more-items'>
+    <div class="stream-end">
+  <div class="stream-end-inner">
+      <span class="Icon Icon--large Icon--logo"></span>
+
+  </div>
+</div>
+
+    <div class="stream-loading">
+  <div class="stream-end-inner">
+    <span class="spinner" title="Loading..."></span>
+  </div>
+</div>
+
+  </div>
+</div> -->
+
+</div>
+
+
+</div>
+    </div>  </div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+<div style="margin-left: 76%;margin-bottom: 90%;position: relative;top:-90%;" >
+        <div class="flex-module" align="left" >
+            <div class="flex-module-header">
+                <h3>Who to follow</h3>
+                <button type="button" class="btn-link js-refresh-suggestions"><small>Refresh</small></button>
+                <small class="view-all"><a class="js-view-all-link" href="/who_to_follow/suggestions" data-element-term="view_all_link">View all</a></small>
+            </div>
+
+            <div class="js-recommended-followers dashboard-user-recommendations flex-module-inner" data-section-id="wtf" style="opacity: 1;">
+            <div ng-repeat="su in suggestedUsers" class="js-account-summary account-summary js-actionable-user promoted-account js-profile-popup-actionable " data-user-id="1394399438" data-feedback-token="38" data-impression-id="46b1d29ed9bf8269" data-impression-cookie="[&quot;1394399438&quot;,&quot;46b1d29ed9bf8269&quot;,&quot;promoted&quot;,&quot;&quot;,[],&quot;&quot;]">
+                <div class="dismiss js-action-dismiss"></div>
+                <div class="content">
+                    <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="/JohnLegere" data-user-id="1394399438">
+
+                        <img class="avatar js-action-profile-avatar " src="" alt="">
+      <span class="account-group-inner js-action-profile-name" data-user-id="1394399438">
+        <b class="fullname">{{su.FirstName}} {{su.LastName}}</b><span class="Icon Icon--verified Icon--small">
+  <span class="u-hiddenVisually">Verified account</span>
+</span>
+        <span class="username"><s>@</s><span class="js-username">{{su.UserName}}</span></span>
+      </span>
+                    </a>
+
+
+                    <small class="metadata social-context">
+                    </small>
+
+                    <div class="user-actions not-following not-muting" data-user-id="1394399438">
+                        <button ng-click="follow(su.Email)" type="button" class="small-follow-btn follow-btn btn small follow-button js-recommended-item">
+                            <div class="js-action-follow follow-text action-text">
+                                <span class="Icon Icon--follow"></span>
+                                Follow
+                            </div>
+                            <div class="js-action-unfollow following-text action-text">Following</div>
+                            <div class="js-action-unfollow unfollow-text action-text">Unfollow</div>
+                            <div class="block-text action-text">Blocked</div>
+                            <div class="js-action-unblock unblock-text action-text">Unblock</div>
+                            <div class="js-action-unfollow pending-text action-text">Pending</div>
+                            <div class="js-action-unfollow cancel-req-text action-text">Cancel</div>
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+                                </div>
+
+            <div class="flex-module-footer">
+                <a href="/who_to_follow/import" class="js-find-friends-link" data-element-term="import_link">Find friends</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+  </body>
+</html>

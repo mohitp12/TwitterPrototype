@@ -1,0 +1,42 @@
+<html>
+
+<head>
+	<title>LogIn to Twitter</title>
+	    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+	    <link rel='stylesheet' href="/stylesheets/style.css" />
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	    
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+	    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+	    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	
+		<link href="//abs.twimg.com/favicons/favicon.ico" rel="shortcut icon" type="image/x-icon">
+		
+	      <!-- Loading the AngularJS file -->
+	    <script src="angularjs/ngsignup.js"></script>
+</head>
+
+<body ng-app="signup" ng-controller="signup" style="background-image:url('image/blue-logo.png');background-position:top; background-size:  50px; background-repeat: no-repeat;">
+	 <div class="text-box">
+	       <!-- <div class="field-input">-->
+		    <div class="signup-wrapper">
+		        <h1>Login to your account</h1>
+				    <input type="text" class="textbox-control" placeholder="Username or email" required autocomplete maxlength="50" ng-model="inputEmail"><br><br>
+		        	<input type="password" class="textbox-control" placeholder="Password" required ng-model="inputPassword"></br></br>
+				    <input type="submit" style="color:white; width: auto;" class="submit-button" value="Log in" style="position:relative;left:0px;" ng-click="login()">
+				    &nbsp;&nbsp;&nbsp;&nbsp;
+				    <a href="" style="font-size: medium;">- Forgot Password?</a><br><br>
+				    <p>Don't have an account? <a href="/"> Sign up</a></p>
+			        <div class="alert alert-danger" ng-hide="unexpected_login">
+			        <strong style="color:red">Invalid username or password</strong>
+			        </div>			        
+			    </div>
+			</div>
+	    </div>
+</body>
+</html>

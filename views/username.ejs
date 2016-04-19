@@ -1,0 +1,37 @@
+<html>  
+
+	<head>
+	    <link href="/twitter-bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet">
+	    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+	    <link rel='stylesheet' href="/stylesheets/style.css" />
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	    
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+	    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+	    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+	      <!-- Loading the AngularJS file -->
+	    <script src="angularjs/ngsignup.js"></script>
+	</head>
+<body ng-app="signup" ng-controller="signup">
+	<p style="text-align:center"><img src="image/white_logo.png" style="position: absolute; top: 0px;z-index: 0;" alt="twitter" height="46px" width="46px"></p>
+	<img src="image/signup-strip.png" style="position: absolute;align:center;left: 0px;top: 0px;z-index: -1;" alt="nav-bar" height="50px" width="100%">
+
+    <div class="text-box">
+        <div class="signup-wrapper">
+            <h1>Choose a username.</h1>
+            <h2 style="color:gray">Don't worry,you can always change it later.</h2>
+            <input type="text" class="textbox-control" name="inputUsername" id="inputUsername" placeholder="User Name" required maxlength="20" ng-model="inputUsername"></br></br>
+            <input type="submit" style="color:white" class="submit-button" value="SignUp" style="position:relative;left:0px;" ng-click="addUser();"></br></br>
+            <div class="alert alert-danger" ng-hide="registered_username">
+				    <strong>This username already exists. Try another</strong>
+        	</div>
+    	</div>
+    </div>
+</body>
+</html>

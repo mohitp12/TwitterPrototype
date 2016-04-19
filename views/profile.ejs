@@ -1,0 +1,1165 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Successful Login</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+      <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+Loading the AngularJS file from /public/angularJS folder
+<script src="angularjs/profile.js"></script>
+  </head>
+  <body ng-app="profile" ng-controller="profile" >
+
+    <h1>Welcome</h1>
+      <span><a href="/profile">{{ Info[0].FirstName }} {{Info[0].LastName}}</a></span><br>
+      <span><a href="/profile">@{{ Info[0].UserName }}</a></span><br>
+      <span>{{ followers[0].num2 }}</span><br>
+      <span>{{ following[0].num1 }}</span><br>
+      <div ng-show="tweetPart" > 
+    <form action="/tweetFromProfile" method="post">
+      <textarea name="tweet" row="4" cols="50"  required>
+        </textarea><br>
+        <button type="submit">Tweet</button><br><br>
+         </form>
+        
+
+ <div style="float: left; width: 600px">
+          <p ng-repeat="t in tweets"><strong>{{t.tweet}}</strong></p>
+          
+          </div> 
+		
+             
+    </div>
+          
+          
+<div style="float: left; width: 200px">
+           <strong>Followers List</strong><br>
+            <button ng-click="followersPart = true; followingPart =false; tweetPart =false;">Followers</button>  
+		      <div ng-show="followersPart">
+		           
+		          <p ng-repeat="fs in followersList"><strong>{{fs.follows}}</strong></p>
+		          
+		          </div>
+</div>
+          
+               
+<div style="float: left; width: 200px">
+           <strong>Following List</strong><br>
+           <button ng-click="followingPart = true; followersPart = false; tweetPart = false;">Following</button>
+	          <div ng-show="followingPart">
+	               <p ng-repeat="fl in followingList"><strong>{{fl.followed}}</strong></p>
+	          
+	          </div >
+</div> 
+         <form action="/relatedTweets" method="post">
+          <div style="float: left; width: 200px">
+          <p ng-repeat="h in hashtags"><strong><button type="submit" style="background:none!important;
+     border:none; 
+     padding:0!important;
+    
+    /*optional*/
+    font-family:arial,sans-serif; /*input has OS specific font-family*/
+     color:#069;
+     text-decoration:none;
+     cursor:pointer;" name="hashTag" value= "{{h.hashtag}}">#{{h.hashtag}}</button></strong></p>
+          
+          </div>
+          </form>
+          
+          
+      <div style="float: right">
+          <div ng-repeat="s in suggestedUsers">
+          <p><strong>{{s.username}}
+              <br><button  name="username" type="submit" ng-click="follow(s.username)" >Follow</button><br><br></strong></p>
+              
+              </div>
+      </div>
+
+          </div>
+  </body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+  <head>
+    
+  <link rel="stylesheet" href="https://abs.twimg.com/a/1456986869/css/t1/twitter_core.bundle.css">
+  <link rel="stylesheet" href="https://abs.twimg.com/a/1456986869/css/t1/twitter_more_1.bundle.css">
+  <link rel="stylesheet" href="https://abs.twimg.com/a/1456986869/css/t1/twitter_more_2.bundle.css">
+
+    <link rel="dns-prefetch" href="https://pbs.twimg.com">
+    <link rel="dns-prefetch" href="https://t.co">
+      <link rel="preload" href="https://abs.twimg.com/c/swift/en/init.35e3500473dd4e39e420afc0d64c7f565acdd804.js" as="script">
+      <link rel="preload" href="https://abs.twimg.com/c/swift/en/bundle/timeline.b47bcb35e32eb75a5f00f9a27aa849b587f91e43.js" as="script">
+      <link rel="preload" href="https://abs.twimg.com/c/swift/en/bundle/boot.4b687557e9d7a558e28f3ad64a18f85f182716eb.js" as="script">
+  
+  <!-- Enter the username and name by angularjs -->
+      <title>Mohit Patel (@mohitpatel) | Twitter</title>
+  
+
+<link rel="mask-icon" sizes="any" href="https://abs.twimg.com/a/1456986869/img/t1/favicon.svg" color="#55acee">
+
+  <link href="//abs.twimg.com/favicons/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+<link rel="manifest" href="/manifest.json">
+  <meta name="swift-page-name" id="swift-page-name" content="me">
+    <link rel="canonical" href="https://twitter.com/iammohit12">
+     <link id="async-css-placeholder">
+  <input type="hidden" class="swift-boot-module" value="app/pages/profile/highline_landing">
+  <input type="hidden" id="swift-module-path" value="https://abs.twimg.com/c/swift/en">
+    <script src="https://abs.twimg.com/c/swift/en/init.35e3500473dd4e39e420afc0d64c7f565acdd804.js" async></script>
+    <script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<!-- Loading the AngularJS file from /public/angularJS folder -->
+<script src="/angularjs/ngprofile.js"></script>
+  </head>
+  
+  <body ng-app="profile" ng-controller="profile" class="three-col logged-in user-style-iammohit12 enhanced-mini-profile ProfilePage ProfilePage--withBlockedWarning" 
+data-fouc-class-names="swift-loading"
+ dir="ltr">
+     
+    <div id="doc" class="route-profile">
+        <div class="topbar js-topbar">
+    <div class="ProfilePage-editingOverlay"></div>
+  <div class="global-nav" data-section-term="top_nav">
+    <div class="global-nav-inner">
+      <div class="container">
+        
+<h1 class="Icon Icon--bird bird-topbar-etched" style="display: inline-block; width: 24px; height: 21px;">
+  <span class="visuallyhidden">Twitter</span>
+</h1>
+
+  
+  <div role="navigation" style="display: inline-block;"><ul class="nav js-global-actions" id="global-actions"><li 
+ id="global-nav-home" class="home" data-global-action="home">
+        <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/home" data-component-context="home_nav" data-nav="home">
+          <span class="Icon Icon--home Icon--large"></span>
+          <span class="text">Home</span>
+        </a>
+      </li><li class="moments js-moments-tab " data-global-action="moments">
+        <a role="button" href="/i/moments" class="js-nav js-tooltip js-dynamic-tooltip" data-component-context="moments_nav" data-nav="moments" data-placement="bottom">
+          <span class="Icon Icon--lightning Icon--large"></span>
+          <span class="text">Moments</span>
+        </a>
+      </li><li class="people notifications" data-global-action="connect">
+        <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/i/notifications" data-component-context="connect_nav" data-nav="connect">
+          <span class="Icon Icon--notifications Icon--large"></span>
+          <span class="text">Notifications</span>
+            <span class="count">
+              <span class="count-inner">0</span>
+            </span>
+        </a>
+      </li><li class="dm-nav">
+        <a role="button" href="#" class="js-tooltip js-dynamic-tooltip global-dm-nav" data-placement="bottom">
+          <span class="Icon Icon--dm Icon--large"></span>
+          <span class="text">Messages</span>
+          <span class="dm-new"><span class="count-inner"></span></span>
+        </a>
+      </li></ul>
+  </div>
+
+  <div class="pull-right" style="display: inline-block;"><div role="search">
+  <form class="t1-form form-search js-search-form" action="/searchHash" id="global-nav-search">
+    <label class="visuallyhidden" for="search-query">Search query</label>
+    <input class="search-input" type="text" id="search-query" placeholder="Search Twitter" name="q" autocomplete="off" spellcheck="false">
+    <span class="search-icon js-search-action">
+      <button type="submit" class="Icon Icon--search nav-search">
+        <span class="visuallyhidden">Search Twitter</span>
+      </button>
+    </span>
+      <div role="listbox" class="dropdown-menu typeahead">
+  
+  <div role="presentation" class="dropdown-inner js-typeahead-results">
+     
+    <ul role="presentation" class="typeahead-items typeahead-topics">
+  
+  <li role="presentation" class="typeahead-item typeahead-topic-item">
+    <a role="option" class="js-nav" href="" data-search-query="" data-query-source="typeahead_click" data-ds="topics" tabindex="-1"></a>
+  </li>
+</ul>
+  </div>
+</div>
+
+  </form>
+</div>
+<ul class="nav right-actions"><li class="me dropdown session js-session" data-global-action="t1me" id="user-dropdown">
+        <a class="btn js-tooltip settings dropdown-toggle js-dropdown-toggle" id="user-dropdown-toggle" title="Profile and settings" data-placement="bottom"><img class="avatar size32" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_normal.png" alt="Profile and settings" data-user-id="703806129919250432"></a>
+        
+
+      </li><li role="complementary" aria-labelledby="global-new-tweet-button" class="topbar-tweet-btn">
+        <button ng-click="logout()" id="global-new-tweet-button" type="button" class="js-global-new-tweet js-tooltip btn primary-btn tweet-btn js-dynamic-tooltip" data-placement="bottom" data-component-context="new_tweet_button">
+          <span class="Icon Icon--tweet Icon--large"></span>
+          <span class="text">Logout</span>
+        </button>
+      </li></ul></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <div id="page-outer">
+          <div id="page-container" class="AppContent">
+      <div class="ProfilePage-editingOverlay"></div>
+
+      
+      <div class="ProfilePage-testForEditingCss"></div>
+    <div class="ProfileCanopy ProfileCanopy--withNav">
+  <div class="ProfileCanopy-inner">
+
+    <div class="ProfileCanopy-header u-bgUserColor">
+      
+  <div class="AppContainer">
+
+    <div class="ProfileCanopy-avatar">
+      <div class="ProfileAvatar">
+    <a class="ProfileAvatar-placeholder u-block js-nav js-tooltip profile-picture"
+        href="/iammohit12?edit=true"
+        title="Add an avatar"
+        data-placement="right"
+        data-scribe-element="profile_avatar">
+      <img class="ProfileAvatar-placeholderImage u-bgUserColor" data-avatar-placeholder="true" src="image/profile.jpeg" alt="Mohit Patel">
+    </a>
+    <a class="ProfileAvatar-container u-block js-tooltip profile-picture  u-hidden"
+        href="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_200x200.png"
+        title="Mohit Patel"
+        data-resolved-url-large="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_200x200.png"
+        data-url="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_200x200.png"
+        target="_blank">
+      <img class="ProfileAvatar-image" src="image/cover.jpeg" alt="Mohit Patel">
+    </a>
+</div>
+
+        <div class="ProfileAvatarEditing">
+  <div class="ProfileAvatarEditing-placeholder u-bgUserColor"></div>
+  <div class="ProfileAvatarEditing-container">
+    <img class="ProfileAvatarEditing-image avatar" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_400x400.png" alt="Mohit Patel">
+  </div>
+  <div class="ProfileAvatarEditing-overlay"></div>
+  <div class="ProfileAvatarEditing-iframeSaving">
+    <div class="ProfileAvatarEditing-iframeSavingHelp">
+      <span class="Icon Icon--clock"></span>
+      <p>Saving</p>
+    </div>
+  </div>
+  <div class="ProfileAvatarEditing-buttonContainer">
+    <button class="ProfileAvatarEditing-button u-boxShadowInsetUserColorHover" type="button" tabindex="2">
+      <div class="ProfileAvatarEditing-addAvatarHelp">
+        <span class="Icon Icon--cameraPlus"></span>
+        <p>Add a profile photo</p>
+      </div>
+      <div class="ProfileAvatarEditing-changeAvatarHelp">
+        <span class="Icon Icon--camera"></span>
+        <p>Change your profile photo</p>
+      </div>
+      <div class="ProfileAvatarEditing-dropAvatarHelp">
+        <span class="Icon Icon--cameraPlus"></span>
+        <p>Drop profile photo here</p>
+      </div>
+    </button>
+  </div>
+    <div id="choose-photo" class="controls avatar-settings inline-upload-avatar dropdown center">
+      <div class="uploader-image uploader-avatar clearfix">
+        <div class="dropdown-menu">
+  <div class="dropdown-caret">
+    <span class="caret-outer"></span>
+    <span class="caret-inner"></span>
+  </div>
+  
+</div>
+<div class="webcam-detect swf-container"></div>
+
+      </div>
+    </div>
+</div>
+
+    </div>
+
+      <button type="button" class="ProfileCanopy-addHeaderCallout">
+        <span class="ProfileCanopy-addHeaderCalloutText u-inlineBlock">
+          Make this space yours. Add a photo!
+        </span>
+      </button>
+
+    <div class="ProfileCanopy-headerPromptAnchor"></div>
+  </div>
+
+</div>
+
+
+    <div class="ProfileCanopy-navBar">
+      <div class="ProfilePage-editingOverlay"></div>
+
+      <div class="AppContainer">
+        <div class="Grid Grid--withGutter">
+          <div class="Grid-cell u-size1of3 u-lg-size1of4">
+            <div class="ProfileCanopy-card" role="presentation">
+              <div class="ProfileCardMini">
+  <a class="ProfileCardMini-avatar profile-picture js-tooltip"
+     href="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_200x200.png"
+     title="{{ Info[0].FirstName }} {{Info[0].LastName}}"
+     data-resolved-url-large="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_200x200.png"
+     data-url="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_200x200.png"
+     target="_blank">
+    <img class="ProfileCardMini-avatarImage" alt="{{ Info[0].FirstName }} {{Info[0].LastName}}" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_4_normal.png" >
+  </a>
+  <div class="ProfileCardMini-details">
+    <div class="ProfileNameTruncated">
+  <div class="u-textTruncate u-inlineBlock">
+    <a class="ProfileNameTruncated-link u-textInheritColor js-nav js-action-profile-name" href="/profile"  data-aria-label-part>
+      {{ Info[0].FirstName }} {{Info[0].LastName}}
+    </a>
+  </div>
+</div>
+    <div class="ProfileCardMini-screenname">
+      <a href="/profile" class="ProfileCardMini-screennameLink u-linkComplex js-nav u-dir" dir="ltr">@<span class="u-linkComplex-target">{{Info[0].UserName}} {{Info[0].location}}</span></a>
+    </div>
+   <!--  <div class="ProfileCardMini-screenname">
+      <a href="" class="ProfileCardMini-screennameLink u-linkComplex js-nav u-dir" dir="ltr"><span class="u-linkComplex-target">{{Info[0].location}}</span></a>
+    </div>
+    <div class="ProfileCardMini-screenname">
+      <a href="" class="ProfileCardMini-screennameLink u-linkComplex js-nav u-dir" dir="ltr"><span class="u-linkComplex-target">{{Info[0].dob}}</span></a>
+    </div>
+    <div class="ProfileCardMini-screenname">
+      <a href="" class="ProfileCardMini-screennameLink u-linkComplex js-nav u-dir" dir="ltr"><span class="u-linkComplex-target">{{Info[0].phone}}</span></a>
+    </div> -->
+  </div>
+</div>
+
+            </div>
+          </div>
+
+          <div class="Grid-cell u-size2of3 u-lg-size3of4">
+            <div class="ProfileCanopy-nav">
+              
+  <div class="ProfileNav" role="navigation" data-user-id="703806129919250432">
+    <ul class="ProfileNav-list">
+<li class="ProfileNav-item ProfileNav-item--tweets is-active" ng-click="tweetDiv=true; followingDiv=false; followersDiv=false;">
+          <a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav" title="{{numOfTweets[0].num3}} Tweets"
+              tabindex=0 href=""
+>
+            <span class="ProfileNav-label">Tweets</span>
+            <span class="ProfileNav-value" data-is-compact="false">{{numOfTweets[0].num3}}</span>
+          </a>
+        </li><li class="ProfileNav-item ProfileNav-item--following" ng-click="tweetDiv=false; followingDiv=true; followersDiv=false;">
+        <a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="{{following[0].num1}} following" data-nav="following"
+            href="" 
+>
+          <span class="ProfileNav-label" >Following</span>
+          <span class="ProfileNav-value" data-is-compact="false">{{following[0].num1}}</span>
+        </a>
+      </li><li class="ProfileNav-item ProfileNav-item--followers" ng-click="tweetDiv=false; followersDiv=true; followingDiv=false;">
+        <a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="{{followers[0].num2}} followers" data-nav=""
+            href=""
+>
+          <span class="ProfileNav-label"  >Followers</span>
+          <span class="ProfileNav-value" data-is-compact="false">{{followers[0].num2}}</span>
+        </a>
+      </li><li class="ProfileNav-item ProfileNav-item--more dropdown is-hidden">        <a class="ProfileNav-stat ProfileNav-stat--link ProfileNav-stat--moreLink js-dropdown-toggle" href="#more">
+          <span class="ProfileNav-label">&nbsp;</span>
+          <span class="ProfileNav-value">More <span class="ProfileNav-dropdownCaret Icon Icon--caretDown"></span></span>
+        </a>
+        <div class="dropdown-menu">
+          <div class="dropdown-caret">
+            <span class="caret-outer"></span>
+            <span class="caret-inner"></span>
+          </div>
+          <ul></ul>
+        </div>
+      </li><li class="ProfileNav-item ProfileNav-item--userActions u-floatRight u-textRight with-rightCaret ">
+        <div class="UserActions   u-textLeft" >
+      <button ng-click="bioDiv=false;"  type="button" class="UserActions-editButton edit-button btn" data-scribe-element="profile_edit_button">
+        <span class="button-text">Edit profile</span>
+      </button>
+   
+
+</div>
+
+      </li>
+    </ul>
+  </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+    <div class="AppContainer">
+      <div class="AppContent-main content-main u-cf" role="main" aria-labelledby="content-main-heading">
+        <div class="Grid Grid--withGutter">
+          <div class="Grid-cell u-size1of3 u-lg-size1of4">
+            <div class="Grid Grid--withGutter">
+              <div class="Grid-cell">
+                <div class="ProfileSidebar ProfileSidebar--withLeftAlignment">
+  <div class="ProfileHeaderCard">
+  <h1 class="ProfileHeaderCard-name">
+    <a href="/profile"
+       class="ProfileHeaderCard-nameLink u-textInheritColor js-nav
+">{{ Info[0].FirstName }} {{Info[0].LastName}}</a>
+  </h1>
+
+  <h2 class="ProfileHeaderCard-screenname u-inlineBlock u-dir" dir="ltr">
+    <a class="ProfileHeaderCard-screennameLink u-linkComplex js-nav" href="/profile">@<span class="u-linkComplex-target">{{ Info[0].UserName }}</span></a>
+  </h2><br>
+  <h2 class="ProfileHeaderCard-screenname u-inlineBlock u-dir" dir="ltr">
+    <a class="ProfileHeaderCard-screennameLink u-linkComplex js-nav" href=""><span class="u-linkComplex-target">{{ Info[0].location }}</span></a>
+  </h2><br>
+  <h2 class="ProfileHeaderCard-screenname u-inlineBlock u-dir" dir="ltr">
+    <a class="ProfileHeaderCard-screennameLink u-linkComplex js-nav" href="">Birth Date: <span class="u-linkComplex-target">{{ Info[0].dob }}</span></a>
+  </h2><br>
+  <h2 class="ProfileHeaderCard-screenname u-inlineBlock u-dir" dir="ltr">
+    <a class="ProfileHeaderCard-screennameLink u-linkComplex js-nav" href="">Phone: <span class="u-linkComplex-target">{{ Info[0].phone }}</span></a>
+  </h2><br>
+
+    <p class="ProfileHeaderCard-bio u-dir"
+      
+      dir="ltr"></p>
+      
+      <form method="post" action="/addBio">
+                                            
+                                            <div  ng-hide="bioDiv">
+
+                                                     <input type="text" name="location" placeholder="location">
+          <span class="ProfileHeaderCard-locationText u-dir" dir="ltr">
+
+          </span>
+                                            </div><br>
+                                            <div ng-hide="bioDiv">
+
+                                                <input type="date" name="dob" placeholder="Birth Date">
+      <span class="ProfileHeaderCard-birthdateText u-dir" dir="ltr">
+</span>
+                                            </div><br>
+
+                                            <div ng-hide="bioDiv">
+
+                                                <input type="number" name="phone" placeholder="Phone Number(831-456-7890)">
+      <span class="ProfileHeaderCard-birthdateText u-dir" dir="ltr">
+</span>
+                                            </div><br>
+
+                                            <div ng-hide="bioDiv" class="UserActions   u-textLeft" >
+                                                <button type="submt" class="UserActions-editButton edit-button btn" data-scribe-element="profile_edit_button" style="color:#00B7FF;" ng-hide="locationhide">
+                                                    <span class="button-text" >Save Changes</span>
+                                                </button>
+
+
+                                            </div></form>
+
+        <div class="ProfileHeaderCard-location u-hidden">
+          <span class="Icon Icon--geo Icon--medium"></span>
+          <span class="ProfileHeaderCard-locationText u-dir" dir="ltr">
+              
+          </span>
+        </div>
+
+      <div class="ProfileHeaderCard-url  u-hidden">
+        <span class="Icon Icon--url Icon--medium"></span>
+        <span class="ProfileHeaderCard-urlText u-dir" dir="ltr">
+</span>
+      </div>
+
+
+
+    <div class="ProfileHeaderCard-birthdate u-hidden">
+      <span class="Icon Icon--balloon Icon--medium"></span>
+      <span class="ProfileHeaderCard-birthdateText u-dir" dir="ltr">
+</span>
+    </div>
+
+      <div class="ProfileMessagingActions">
+  <div class="ProfileMessagingActions-actionsContainer">
+  </div>
+</div>
+</div>
+
+
+
+
+    <div class="ProfileHeaderCardEditing u-bgUserColorLightest ProfileHeaderCardEditing--withExtraFields">
+  <div class="ProfileHeaderCardEditing-name ProfileHeaderCardEditing-item">
+    <input type="text" id="user_name" name="user[name]"
+           class="ProfileHeaderCardEditing-editableField u-borderUserColorLight"
+           value="Mohit Patel" placeholder="Name"
+           maxlength="20" autocomplete="off" tabindex="2">
+  </div>
+  <div class="ProfileHeaderCardEditing-screenname u-textUserColor">@iammohit12</div>
+    <div class="ProfileHeaderCardEditing-bioRich ProfileHeaderCardEditing-item">
+      <div name="user[description]"
+        class="ProfileHeaderCardEditing-editableField rich-editor u-borderUserColorLight" contenteditable="true" spellcheck="true"
+        aria-multiline="true" data-placeholder="Bio" role="textbox" tabindex="2"></div>
+    </div>
+    <div class="ProfileHeaderCardEditing-location ProfileHeaderCardEditing-item dropdown">
+    <label class="visuallyhidden" for="user_location">Profile location</label>
+    <input type="text" id="user_location" name="user[location]"
+        class="ProfileHeaderCardEditing-editableField u-borderUserColorLight GeoSearch-queryInput js-geo-search-trigger js-dropdown-prevent-close"
+        value="" placeholder="Location"
+        maxlength="30" autocomplete="off" tabindex="2">
+    <div id="profile-geo-dropdown" class="GeoSearch-dropdownMenu dropdown-menu">
+      <div class="dropdown-caret" aria-hidden="true">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+      </div>
+      <ul role="presentation">
+        <li class="GeoSearch-searchStatus" role="presentation"></li>
+      </ul>
+      <ul class="GeoSearch-resultsContainer" role="presentation">
+      </ul>
+    </div>
+    <input class="ProfileHeaderCardEditing-locationPlaceId GeoSearch-placeId" type="hidden" name="user[location_place_id]" value="">
+  </div>
+</div>
+</div>
+
+              </div>
+            </div>
+          </div>
+<!--*******************************Row above tweets in profile***************************-->
+          <div class="Grid-cell u-size2of3 u-lg-size3of4">
+            <div class="Grid Grid--withGutter">
+                <div class="Grid-cell">
+                  <div class="js-profileClusterFollow"></div>
+                </div>
+
+              <div class="Grid-cell
+                    u-lg-size2of3
+              " data-test-selector="ProfileTimeline">
+                  
+                    <div class="ProfileHeading">
+  <div class="ProfileHeading-spacer"></div>
+    <div class="ProfileHeading-content
+      ">
+      <h2 id="content-main-heading" class="ProfileHeading-title u-hiddenVisually ">Tweets</h2>
+        <ul class="ProfileHeading-toggle">
+            <li class="ProfileHeading-toggleItem
+              
+              is-active
+              "
+              data-element-term="tweets_toggle">
+                Tweets
+            </li>
+            <li class="ProfileHeading-toggleItem
+              
+              
+              u-textUserColor"
+              data-element-term="tweets_with_replies_toggle">
+                <a class="ProfileHeading-toggleLink js-nav" href="/iammohit12/with_replies" data-nav="tweets_with_replies_toggle">
+                  Tweets &amp; replies
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+    <div id="timeline">
+        <div class="stream-container  js-request-more-stream-items"
+    data-max-position="704196860387287041" data-min-position="704196860387287041"
+    >
+
+   
+<!--***************************Tweets and retweets by you*********************************-->
+    <div class="stream">
+        <ol class="stream-items js-navigable-stream" id="stream-items-id">
+          
+      <li class="js-stream-item stream-item stream-item expanding-stream-item
+" data-item-id="704196860387287041" id="stream-item-tweet-704196860387287041" data-item-type="tweet">
+      
+  <div ng-repeat="tweet in allTweets" ng-show="tweetDiv" class="tweet original-tweet js-original-tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable has-cards" data-tweet-id="710744825117745152" data-disclosure-type="" data-item-id="710744825117745152" data-permalink-path="/TechCrunch/status/710744825117745152" data-screen-name="TechCrunch" data-name="TechCrunch" data-user-id="816653" data-has-cards="true" data-card2-type="summary_large_image" data-expanded-footer="<div class=&quot;js-tweet-details-fixer tweet-details-fixer&quot;>
+    <div class=&quot;card2 js-media-container&quot; data-card2-name=&quot;summary_large_image&quot;>
+    <div class=&quot;js-macaw-cards-iframe-container initial-card-height card-type-summary_large_image&quot;
+  data-src=&quot;/i/cards/tfw/v1/710744825117745152?cardname=summary_large_image&amp;amp;earned=true&amp;amp;lang=en&quot;
+  data-autoplay-src=&quot;/i/cards/tfw/v1/710744825117745152?cardname=summary_large_image&amp;amp;earned=true&amp;amp;lang=en&quot;
+  data-card-name=&quot;summary_large_image&quot;
+  data-card-url=&quot;https://t.co/JZC6SeiDfj&quot;
+  data-publisher-id=&quot;816653&quot;
+  data-creator-id=&quot;&quot;
+  data-amplify-content-id=&quot;&quot;
+  data-amplify-playlist-url=&quot;&quot;
+  data-full-card-iframe-url=&quot;/i/cards/tfw/v1/710744825117745152?cardname=summary_large_image&amp;amp;earned=true&amp;amp;lang=en&quot;
+  data-has-autoplayable-media=&quot;false&quot;>
+</div>
+
+</div>
+
+
+  <div class=&quot;js-machine-translated-tweet-container&quot;></div>
+    <div class=&quot;js-tweet-stats-container tweet-stats-container &quot;>
+    </div>
+
+  <div class=&quot;client-and-actions&quot;>
+  <span class=&quot;metadata&quot;>
+    <span>1:29 AM - 18 Mar 2016</span>
+       &amp;middot; <a class=&quot;permalink-link js-permalink js-nav&quot; href=&quot;/TechCrunch/status/710744825117745152&quot;  tabindex=&quot;-1&quot;>Details</a>
+  </span>
+</div>
+
+
+</div>
+" data-you-follow="true" data-follows-you="false" data-you-block="false">
+
+
+    <div class="context">
+      
+      
+
+    </div>
+
+    <div class="content">
+      
+
+      
+      <div class="stream-item-header">
+          <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/TechCrunch" data-user-id="816653">
+    <img class="avatar js-action-profile-avatar" src="" alt="">
+    <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">{{tweet.FirstName}} {{tweet.LastName}}</strong>
+    <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>{{tweet.UserName}}</b></span>
+    
+  </a>
+
+        <small class="time">
+  <a href="/TechCrunch/status/710744825117745152" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="1:29 AM - 18 Mar 2016"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1458289745" data-time-ms="1458289745000" data-long-form="true" aria-hidden="true">1h</span><span class="u-hiddenVisually" data-aria-label-part="last">1 hour ago</span></a>
+</small>
+
+          
+          
+      </div>
+
+      
+        <div class="js-tweet-text-container">
+  <p class="TweetTextSize  js-tweet-text tweet-text" lang="en" data-aria-label-part="0">{{tweet.Tweet}}</p>
+</div>
+
+
+
+
+      
+        
+
+      
+      
+  <div class="expanded-content js-tweet-details-dropdown">
+    
+      
+  </div>
+
+
+      
+      <div class="stream-item-footer">
+  
+    
+<a class="details with-icn js-details" href="/TechCrunch/status/710744825117745152">
+  <b>
+      <span class="expand-stream-item js-view-details">View summary</span>
+      <span class="collapse-stream-item js-hide-details">Hide summary</span>
+  </b>
+</a>
+
+
+  
+        <div class="ProfileTweet-actionCountList u-hiddenVisually">
+    
+    <span class="ProfileTweet-action--reply u-hiddenVisually"></span>
+    <span class="ProfileTweet-action--retweet u-hiddenVisually">
+      
+      <span class="ProfileTweet-actionCount" data-tweet-stat-count="42">
+        <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">42 retweets</span>
+      </span>
+    </span>
+    <span class="ProfileTweet-action--favorite u-hiddenVisually">
+      <span class="ProfileTweet-actionCount" data-tweet-stat-count="16">
+        <span class="ProfileTweet-actionCountForAria" data-aria-label-part="">16 likes</span>
+      </span>
+    </span>
+  </div>
+
+    <div class="ProfileTweet-actionList js-actions" role="group" aria-label="Tweet actions">
+      <div class="ProfileTweet-action ProfileTweet-action--reply">
+  <button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-actionReply" data-modal="ProfileTweet-reply" type="button">
+    <div class="IconContainer js-tooltip" title="Reply">
+      <span class="Icon Icon--reply"></span>
+      <span class="u-hiddenVisually">Reply</span>
+    </div>
+  </button>
+</div>
+      <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
+  <button class="ProfileTweet-actionButton  js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
+    <div class="IconContainer js-tooltip" title="Retweet">
+      <span class="Icon Icon--retweet"></span>
+      <span class="u-hiddenVisually">Retweet</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">42</span>
+        </span>
+      </div>
+  </button><button class="ProfileTweet-actionButtonUndo js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
+    <div class="IconContainer js-tooltip" title="Undo retweet">
+      <span class="Icon Icon--retweet"></span>
+      <span class="u-hiddenVisually">Retweeted</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">42</span>
+        </span>
+      </div>
+  </button>
+</div>
+      <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
+  <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
+    <div class="IconContainer js-tooltip" title="Like">
+      <div class="HeartAnimationContainer">
+        <div class="HeartAnimation "></div>
+      </div>
+      <span class="u-hiddenVisually">Like</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">16</span>
+        </span>
+      </div>
+  </button><button class="ProfileTweet-actionButtonUndo u-linkClean js-actionButton js-actionFavorite" type="button">
+    <div class="IconContainer js-tooltip" title="Undo like">
+      <div class="HeartAnimationContainer">
+        <div class="HeartAnimation "></div>
+      </div>
+      <span class="u-hiddenVisually">Liked</span>
+    </div>
+      <div class="IconTextContainer">
+        <span class="ProfileTweet-actionCount">
+          <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">16</span>
+        </span>
+      </div>
+  </button>
+</div>
+      
+
+        <div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions">
+    <div class="dropdown">
+  <button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button">
+      <div class="IconContainer js-tooltip" data-original-title="More">
+        <span class="Icon Icon--dots"></span>
+        <span class="u-hiddenVisually">More</span>
+      </div>
+  </button>
+  <div class="dropdown-menu">
+  <div class="dropdown-caret">
+    <div class="caret-outer"></div>
+    <div class="caret-inner"></div>
+  </div>
+  <ul>
+      <li class="share-via-dm js-actionShareViaDM" data-nav="share_tweet_dm">
+        <button type="button" class="dropdown-link">Share via Direct Message</button>
+      </li>
+    
+      <li class="copy-link-to-tweet js-actionCopyLinkToTweet">
+        <button type="button" class="dropdown-link">Copy link to Tweet</button>
+      </li>
+      <li class="embed-link js-actionEmbedTweet" data-nav="embed_tweet">
+        <button type="button" class="dropdown-link">Embed Tweet</button>
+      </li>
+          <li class="mute-user-item pretty-link"><button type="button" class="dropdown-link">Mute</button></li>
+  <li class="unmute-user-item pretty-link"><button type="button" class="dropdown-link">Unmute</button></li>
+
+        <li class="block-link js-actionBlock" data-nav="block">
+          <button type="button" class="dropdown-link">Block</button>
+        </li>
+        <li class="unblock-link js-actionUnblock" data-nav="unblock">
+          <button type="button" class="dropdown-link">Unblock</button>
+        </li>
+        <li class="report-link js-actionReport" data-nav="report">
+          <button type="button" class="dropdown-link">
+            
+            Report
+          </button>
+        </li>
+  </ul>
+</div>
+
+</div>
+
+  </div>
+
+    </div>
+
+</div>
+  
+
+
+
+      
+      
+
+    </div>
+  </div>
+
+  
+
+
+</li>
+
+    <li  ng-show="followersDiv" class="js-stream-item stream-item js-no-dedup has-scroll-bump js-has-navigable-stream stream-item no-header-background-module separated-module
+ js-no-dedup has-scroll-bump js-has-navigable-stream stream-item no-header-background-module separated-module ScrollBump ScrollBump--recentlyFollowed" data-item-id="1456729728237" id="stream-item-follow_entry-1456729728237" data-item-type="follow_entry" data-component-context="user_scroll_bump">
+ <!--List of users followed by you-->
+
+  <!--/***********************************************************************************/-->
+  <ul class="ScrollBump-content js-navigable-stream">
+      <li ng-repeat="follower in followersList" class="js-stream-item scroll-bump-user-card" data-test-selector="ProfileTimelineUser" data-item-id="2480951" id="stream-item-user-2480951" data-item-type="user">
+            <div class="ProfileCard  js-actionable-user"
+     data-screen-name="ubuntu"
+     data-user-id="2480951"
+     data-feedback-token=""
+     data-impression-id=""
+     
+  >
+  <a class="ProfileCard-bg js-nav" href="" tabindex="-1" aria-hidden="true" style="
+    background-color: blue;">
+  </a>
+<!--Profile cards of the users followed by you-->
+  <div class="ProfileCard-content">
+    <a class="ProfileCard-avatarLink js-nav js-tooltip" href="" title="Ubuntu" tabindex="-1" aria-hidden="true" >
+      <img class="ProfileCard-avatarImage js-action-profile-avatar" src="" alt="">
+    </a>
+    
+      <div class="ProfileCard-actions">
+        <div class="ProfileCard-userActions with-rightCaret js-userActions">
+          <div class="UserActions   UserActions--small u-textLeft" >
+    <div class="user-actions btn-group following not-muting including " data-user-id="2480951"
+        data-screen-name="ubuntu" data-name="Ubuntu" data-protected="false">
+      <span class="UserActions-moreActions u-inlineBlock">
+          <button type="button" class="js-tooltip unmute-button btn small plain-btn" title="Unmute @ubuntu" data-placement="top">
+            <span class="Icon Icon--muted Icon--medium"><span class="visuallyhidden">Unmute @ubuntu</span></span>
+          </button><button type="button" class="first-load js-tooltip mute-button btn small plain-btn" title="Mute @ubuntu" data-placement="top">
+            <span class="Icon Icon--unmuted Icon--medium"><span class="visuallyhidden">Mute @ubuntu</span></span>
+          </button>
+
+
+      </span>
+      
+      <button ng-click="follow(follower.Email)" class="user-actions-follow-button js-follow-btn follow-button btn small small-follow-btn" type="button">
+  <span class="button-text follow-text">
+    <span class="Icon Icon--follow"></span> Follow 
+  </span>
+  <span class="button-text following-text">
+     Following 
+  </span>
+  <span class="button-text unfollow-text">
+     Unfollow    
+  </span>
+  <span class="button-text blocked-text">Blocked</span>
+  <span class="button-text unblock-text">Unblock</span>
+  <span class="button-text pending-text">Pending</span>
+  <span class="button-text cancel-text">Cancel</span>
+</button>
+
+    </div>
+</div>
+
+        </div>
+      </div>
+
+    <div class="ProfileCard-userFields">
+      <div class="ProfileNameTruncated">
+  <div class="u-textTruncate u-inlineBlock ProfileNameTruncated-withBadges ProfileNameTruncated-withBadges--1">
+    <a class="ProfileNameTruncated-link u-textInheritColor js-nav js-action-profile-name" href="/ubuntu"  data-aria-label-part>
+      {{follower.FirstName}} {{follower.LastName}}
+    </a>
+      <div class="ProfileNameTruncated-badges">
+        <a href="/help/verified" class="js-tooltip" target="_blank" title="Verified account" data-placement="right"><span class="Icon Icon--verified"><span class="u-hiddenVisually">Verified account</span></span></a>
+
+      </div>
+  </div>
+</div>
+      
+      <span class="ProfileCard-screenname u-dir" dir="ltr">
+        <a href="/ubuntu" class="ProfileCard-screennameLink u-linkComplex js-nav" data-aria-label-part >
+          @<span class="u-linkComplex-target">{{follwer.UserName}}</span>
+        </a>
+      </span>
+      <p class="ProfileCard-bio u-dir js-ellipsis"
+        
+        dir="ltr" data-aria-label-part>Official Twitter Account for {{follower.FirstName}} {{follower.LastName}}</p>
+      
+    </div>
+  </div>
+</div>
+</li>
+</ul>
+      
+      </li>
+      
+
+    <li  ng-show="followingDiv" class="js-stream-item stream-item js-no-dedup has-scroll-bump js-has-navigable-stream stream-item no-header-background-module separated-module
+ js-no-dedup has-scroll-bump js-has-navigable-stream stream-item no-header-background-module separated-module ScrollBump ScrollBump--recentlyFollowed" data-item-id="1456729728237" id="stream-item-follow_entry-1456729728237" data-item-type="follow_entry" data-component-context="user_scroll_bump">
+ <!--List of users followed by you-->
+
+  <!--/***********************************************************************************/-->
+  <ul class="ScrollBump-content js-navigable-stream">
+      <li ng-repeat="following in followingList" class="js-stream-item scroll-bump-user-card" data-test-selector="ProfileTimelineUser" data-item-id="2480951" id="stream-item-user-2480951" data-item-type="user">
+            <div class="ProfileCard  js-actionable-user"
+     data-screen-name="ubuntu"
+     data-user-id="2480951"
+     data-feedback-token=""
+     data-impression-id=""
+     
+  >
+  <a class="ProfileCard-bg js-nav" href="/ubuntu" tabindex="-1" aria-hidden="true" style="
+    background-color: blue;">
+  </a>
+<!--Profile cards of the users followed by you-->
+  <div class="ProfileCard-content">
+    <a class="ProfileCard-avatarLink js-nav js-tooltip" href="/ubuntu" title="Ubuntu" tabindex="-1" aria-hidden="true" >
+      <img class="ProfileCard-avatarImage js-action-profile-avatar" src="" alt="">
+    </a>
+    
+      <div class="ProfileCard-actions">
+        <div class="ProfileCard-userActions with-rightCaret js-userActions">
+          <div class="UserActions   UserActions--small u-textLeft" >
+    <div class="user-actions btn-group following not-muting including " data-user-id="2480951"
+        data-screen-name="ubuntu" data-name="Ubuntu" data-protected="false">
+      <span class="UserActions-moreActions u-inlineBlock">
+          <button type="button" class="js-tooltip unmute-button btn small plain-btn" title="Unmute @ubuntu" data-placement="top">
+            <span class="Icon Icon--muted Icon--medium"><span class="visuallyhidden">Unmute @ubuntu</span></span>
+          </button><button type="button" class="first-load js-tooltip mute-button btn small plain-btn" title="Mute @ubuntu" data-placement="top">
+            <span class="Icon Icon--unmuted Icon--medium"><span class="visuallyhidden">Mute @ubuntu</span></span>
+          </button>
+
+
+      </span><button ng-click="follow(following.Email)" class="user-actions-follow-button js-follow-btn follow-button btn small small-follow-btn" type="button">
+  <span class="button-text follow-text">
+    <span class="Icon Icon--follow"></span> Follow 
+  </span>
+  <span class="button-text following-text">
+     Following 
+  </span>
+  <span class="button-text unfollow-text">
+     Unfollow    
+  </span>
+  <span class="button-text blocked-text">Blocked</span>
+  <span class="button-text unblock-text">Unblock</span>
+  <span class="button-text pending-text">Pending</span>
+  <span class="button-text cancel-text">Cancel</span>
+</button>
+
+    </div>
+</div>
+
+        </div>
+      </div>
+
+    <div class="ProfileCard-userFields">
+      <div class="ProfileNameTruncated">
+  <div class="u-textTruncate u-inlineBlock ProfileNameTruncated-withBadges ProfileNameTruncated-withBadges--1">
+    <a class="ProfileNameTruncated-link u-textInheritColor js-nav js-action-profile-name" href="/ubuntu"  data-aria-label-part>
+      {{following.FirstName}} {{following.LastName}}
+    </a>
+      <div class="ProfileNameTruncated-badges">
+        <a href="/help/verified" class="js-tooltip" target="_blank" title="Verified account" data-placement="right"><span class="Icon Icon--verified"><span class="u-hiddenVisually">Verified account</span></span></a>
+
+      </div>
+  </div>
+</div>
+      
+      <span class="ProfileCard-screenname u-dir" dir="ltr">
+        <a href="/ubuntu" class="ProfileCard-screennameLink u-linkComplex js-nav" data-aria-label-part >
+          @<span class="u-linkComplex-target">{{following.UserName}}</span>
+        </a>
+      </span>
+      <p class="ProfileCard-bio u-dir js-ellipsis"
+        
+        dir="ltr" data-aria-label-part>Official Twitter Account for {{following.FirstName}} {{following.LastName}}</p>
+      
+    </div>
+  </div>
+</div>
+
+
+      </li>
+      
+  </ul>
+</li>
+      
+  </ul>
+</li>
+
+
+        </ol>
+ <!--****************************************twitter logo at the end*********************-->     
+       <div class="stream-end">
+  <div class="stream-end-inner">
+      <span class="Icon Icon--large Icon--logo"></span>
+
+  </div>
+</div>
+<!--**********************************************************************************-->
+
+    </div>
+  </div>
+    </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+</div>
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-left: 76%;margin-bottom: 90%;position: relative;top:-55%;" >
+        <div class="flex-module" align="left" >
+            <div class="flex-module-header">
+                <h3>Who to follow</h3>
+                <small>· </small>
+                <button type="button" class="btn-link js-refresh-suggestions"><small>Refresh</small></button>
+                <small class="view-all">· <a class="js-view-all-link" href="/who_to_follow/suggestions" data-element-term="view_all_link">View all</a></small>
+            </div>
+
+            <div class="js-recommended-followers dashboard-user-recommendations flex-module-inner" data-section-id="wtf" style="opacity: 1;">
+            <div ng-repeat="su in suggestedUsers" class="js-account-summary account-summary js-actionable-user promoted-account js-profile-popup-actionable " data-user-id="1394399438" data-feedback-token="38" data-impression-id="46b1d29ed9bf8269" data-impression-cookie="[&quot;1394399438&quot;,&quot;46b1d29ed9bf8269&quot;,&quot;promoted&quot;,&quot;&quot;,[],&quot;&quot;]">
+                <div class="dismiss js-action-dismiss"></div>
+                <div class="content">
+                    <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="/JohnLegere" data-user-id="1394399438">
+
+                        <img class="avatar js-action-profile-avatar " src="" alt="">
+      <span class="account-group-inner js-action-profile-name" data-user-id="1394399438">
+        <b class="fullname">{{su.FirstName}} {{su.LastName}}</b><span class="Icon Icon--verified Icon--small">
+  <span class="u-hiddenVisually">Verified account</span>
+</span>
+        <span class="username"><s>@</s><span class="js-username">{{su.UserName}}</span></span>
+      </span>
+                    </a>
+
+
+                    <small class="metadata social-context">
+                    </small>
+
+                    <div class="user-actions not-following not-muting" data-user-id="1394399438">
+                        <button ng-click="follow(su.Email)" type="button" class="small-follow-btn follow-btn btn small follow-button js-recommended-item">
+                            <div class="js-action-follow follow-text action-text">
+                                <span class="Icon Icon--follow"></span>
+                                Follow
+                            </div>
+                            <div class="js-action-unfollow following-text action-text">Following</div>
+                            <div class="js-action-unfollow unfollow-text action-text">Unfollow</div>
+                            <div class="block-text action-text">Blocked</div>
+                            <div class="js-action-unblock unblock-text action-text">Unblock</div>
+                            <div class="js-action-unfollow pending-text action-text">Pending</div>
+                            <div class="js-action-unfollow cancel-req-text action-text">Cancel</div>
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+                <!-- <div class="js-account-summary account-summary js-actionable-user " data-user-id="1339835893" data-feedback-token="117" data-impression-id="">
+                    <div class="dismiss js-action-dismiss"></div>
+                    <div class="content">
+                        <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="/HillaryClinton" data-user-id="1339835893">
+
+                            <img class="avatar js-action-profile-avatar " src="https://pbs.twimg.com/profile_images/705242833637265408/I4RZo3K4_normal.jpg" alt="">
+      <span class="account-group-inner js-action-profile-name" data-user-id="1339835893">
+        <b class="fullname">Hillary Clinton</b><span class="Icon Icon--verified Icon--small">
+  <span class="u-hiddenVisually">Verified account</span>
+</span>
+        <span class="username"><s>@</s><span class="js-username">HillaryClinton</span></span>
+      </span>
+                        </a>
+
+
+                        <small class="metadata social-context">
+                        </small>
+
+                        <div class="user-actions not-following not-muting" data-user-id="1339835893">
+                            <button type="button" class="small-follow-btn follow-btn btn small follow-button js-recommended-item">
+                                <div class="js-action-follow follow-text action-text">
+                                    <span class="Icon Icon--follow"></span>
+                                    Follow
+                                </div>
+                                <div class="js-action-unfollow following-text action-text">Following</div>
+                                <div class="js-action-unfollow unfollow-text action-text">Unfollow</div>
+                                <div class="block-text action-text">Blocked</div>
+                                <div class="js-action-unblock unblock-text action-text">Unblock</div>
+                                <div class="js-action-unfollow pending-text action-text">Pending</div>
+                                <div class="js-action-unfollow cancel-req-text action-text">Cancel</div>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="js-account-summary account-summary js-actionable-user " data-user-id="1536791610" data-feedback-token="117" data-impression-id="">
+                    <div class="dismiss js-action-dismiss"></div>
+                    <div class="content">
+                        <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="/POTUS" data-user-id="1536791610">
+
+                            <img class="avatar js-action-profile-avatar " src="https://pbs.twimg.com/profile_images/600314410003865600/laIuu4bB_normal.jpg" alt="">
+      <span class="account-group-inner js-action-profile-name" data-user-id="1536791610">
+        <b class="fullname">President Obama</b><span class="Icon Icon--verified Icon--small">
+  <span class="u-hiddenVisually">Verified account</span>
+</span>
+        <span class="username"><s>@</s><span class="js-username">POTUS</span></span>
+      </span>
+                        </a>
+
+
+                        <small class="metadata social-context">
+                        </small>
+
+                        <div class="user-actions not-following not-muting" data-user-id="1536791610">
+                            <button type="button" class="small-follow-btn follow-btn btn small follow-button js-recommended-item">
+                                <div class="js-action-follow follow-text action-text">
+                                    <span class="Icon Icon--follow"></span>
+                                    Follow
+                                </div>
+                                <div class="js-action-unfollow following-text action-text">Following</div>
+                                <div class="js-action-unfollow unfollow-text action-text">Unfollow</div>
+                                <div class="block-text action-text">Blocked</div>
+                                <div class="js-action-unblock unblock-text action-text">Unblock</div>
+                                <div class="js-action-unfollow pending-text action-text">Pending</div>
+                                <div class="js-action-unfollow cancel-req-text action-text">Cancel</div>
+                            </button>
+                        </div>
+
+                    </div>
+                </div> -->
+                </div>
+
+            <div class="flex-module-footer">
+                <a href="/who_to_follow/import" class="js-find-friends-link" data-element-term="import_link">Find friends</a>
+            </div>
+        </div>
+    </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<html>  
+
+	<head>
+	    <link href="/twitter-bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet">
+	    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+	    <link rel='stylesheet' href="/stylesheets/style.css" />
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	    
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+	    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+	    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+		<link href="//abs.twimg.com/favicons/favicon.ico" rel="shortcut icon"
+	type="image/x-icon">
+		
+			<title>Twitter</title>
+	      <!-- Loading the AngularJS file -->
+	    <script src="angularjs/ngsignup.js"></script>
+	</head>
+	
+	<body  ng-app="signup" ng-controller="signup" ">
+	<p style="text-align:center"><img src="image/white_logo.png" style="position: absolute; top: 0px;z-index: 0;" alt="twitter" height="46px" width="46px"></p>
+		<img src="image/signup-strip.png" style="position: absolute;align:center;left: 0px;top: 0px;z-index: -1;" alt="nav-bar" height="50px" width="100%">
+	     
+	    <!-- <div style="background-image:url('image/TwitterLogo_white.png'); size= 45px 45px;background-repeat: no-repeat;background-position:top;position: relative;"></div> -->
+	    <div class="text-box">
+	       <!-- <div class="field-input">-->
+	       <br><br>
+		    <div class="signup-wrapper">
+		        <h1>Join Twitter today</h1>
+		        	<br>
+		        	<input type="text" class="textbox-control" name="inputFirstname" id="inputFirstname" placeholder="First Name" required maxlength="20" ng-model="inputFirstname"></br></br>
+					<br>
+		        	<input type="text" class="textbox-control" name="inputLastname" id="inputLastname" placeholder="Last Name" required maxlength="20" ng-model="inputLastname"></br></br>
+				    <br>
+				    <input type="email" class="textbox-control" name="inputEmail" id="inputEmail" placeholder="Phone or Email" required ng-model="inputEmail"> 
+				    <br>
+				    <div class="alert alert-danger" ng-hide="registered_email">
+				    	<strong>This email is already registered. Want to login or recover your password?</strong>
+		        	</div></br></br>
+	    		<input type="password" class="textbox-control"name="inputPassword" id="inputPassword" placeholder="Password" required ng-model="inputPassword"></br></br>
+		    	<div class="signup-wrapper">
+			        <div class="alert alert-danger" ng-hide="unexpected_error">
+			            <strong style="color:red">Unexpected error,try again</strong>
+			        </div>
+			           <input type="submit" style="color:white" class="submit-button" value="Sign up" style="position:relative;left:0px;" ng-click="submit();"></br></br>
+			           <div style="font-size: medium; margin-left:10px;"><a href="/signin">Have an Account? Log in</a></div>
+			    </div>
+			</div>
+	    </div>
+	</body>
+</html>
